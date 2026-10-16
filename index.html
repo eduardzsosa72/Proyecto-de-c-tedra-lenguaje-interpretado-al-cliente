@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pokémon Bank - Cajero automático. Proyecto de cátedra de Lenguajes Interpretados en el Cliente, Universidad Don Bosco.">
+    <title>Pokémon Bank | Cajero Automático</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Estilos del proyecto -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ===== Encabezado ===== -->
+    <header class="header">
+        <div class="container header__inner">
+            <a href="index.html" class="logo">
+                <span class="pokeball" aria-hidden="true"></span>
+                <span class="logo__text">Pokémon <strong>Bank</strong></span>
+            </a>
+            <nav class="nav">
+                <a href="#servicios" class="nav__link">Servicios</a>
+                <a href="#como-funciona" class="nav__link">¿Cómo funciona?</a>
+                <a href="views/login.html" class="btn btn--small btn--yellow">Ingresar</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- ===== Hero / Bienvenida ===== -->
+        <section class="hero">
+            <div class="container hero__inner">
+                <div class="hero__content">
+                    <span class="badge">Cajero Automático 24/7</span>
+                    <h1 class="hero__title">¡Bienvenido, Entrenador!</h1>
+                    <p class="hero__text">
+                        Administra tus Pokédólares de forma rápida y segura. Deposita, retira,
+                        consulta tu saldo y paga tus servicios desde un solo lugar.
+                    </p>
+                    <div class="hero__actions">
+                        <a href="views/login.html" class="btn btn--yellow btn--large">Iniciar sesión</a>
+                        <a href="#servicios" class="btn btn--outline-light btn--large">Ver servicios</a>
+                    </div>
+                </div>
+
+                <!-- Representación del cajero -->
+                <div class="atm" aria-label="Ilustración del cajero automático">
+                    <div class="atm__top">
+                        <span class="pokeball pokeball--small" aria-hidden="true"></span>
+                        <span>POKÉMON BANK</span>
+                    </div>
+                    <div class="atm__screen">
+                        <p class="atm__screen-title">BIENVENIDO</p>
+                        <p class="atm__screen-text">Ingrese su PIN para continuar</p>
+                        <div class="pin-dots" aria-hidden="true">
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                    <div class="atm__keypad" aria-hidden="true">
+                        <span>1</span><span>2</span><span>3</span>
+                        <span>4</span><span>5</span><span>6</span>
+                        <span>7</span><span>8</span><span>9</span>
+                        <span class="key--cancel">CANC</span><span>0</span><span class="key--ok">OK</span>
+                    </div>
+                    <div class="atm__slot" aria-hidden="true"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Servicios ===== -->
+        <section id="servicios" class="section">
+            <div class="container">
+                <h2 class="section__title">Nuestros servicios</h2>
+                <p class="section__subtitle">Todo lo que necesitas en tu aventura financiera.</p>
+
+                <div class="grid">
+                    <article class="card">
+                        <h3 class="card__title">Depósito</h3>
+                        <p class="card__text">Agrega fondos a tu cuenta al instante.</p>
+                    </article>
+                    <article class="card">
+                        <h3 class="card__title">Retiro</h3>
+                        <p class="card__text">Retira efectivo y obtén tu comprobante en PDF.</p>
+                    </article>
+                    <article class="card">
+                        <h3 class="card__title">Consulta de saldo</h3>
+                        <p class="card__text">Revisa tu saldo disponible en todo momento.</p>
+                    </article>
+                    <article class="card">
+                        <h3 class="card__title">Pago de servicios</h3>
+                        <p class="card__text">Energía, agua, internet y telefonía.</p>
+                    </article>
+                    <article class="card">
+                        <h3 class="card__title">Historial</h3>
+                        <p class="card__text">Consulta todas tus transacciones realizadas.</p>
+                    </article>
+                    <article class="card">
+                        <h3 class="card__title">Gráficos</h3>
+                        <p class="card__text">Analiza tus ingresos y egresos visualmente.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Cómo funciona ===== -->
+        <section id="como-funciona" class="section section--alt">
+            <div class="container">
+                <h2 class="section__title">¿Cómo funciona?</h2>
+                <p class="section__subtitle">Tres pasos y listo.</p>
+
+                <ol class="steps">
+                    <li class="step">
+                        <span class="step__number">1</span>
+                        <h3 class="step__title">Ingresa tu PIN</h3>
+                        <p class="step__text">Accede con tu PIN de 4 dígitos.</p>
+                    </li>
+                    <li class="step">
+                        <span class="step__number">2</span>
+                        <h3 class="step__title">Elige una acción</h3>
+                        <p class="step__text">Deposita, retira, consulta o paga servicios.</p>
+                    </li>
+                    <li class="step">
+                        <span class="step__number">3</span>
+                        <h3 class="step__title">Recibe tu comprobante</h3>
+                        <p class="step__text">Descarga el comprobante de tu transacción.</p>
+                    </li>
+                </ol>
+
+                <div class="center">
+                    <a href="views/login.html" class="btn btn--red btn--large">Comenzar ahora</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== Pie de página ===== -->
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p><strong>Pokémon Bank</strong> &mdash; Proyecto de Cátedra</p>
+            <p>Universidad Don Bosco &middot; Lenguajes Interpretados en el Cliente &middot; <span id="year">2026</span></p>
+        </div>
+    </footer>
+
+    <script src="js/main.js" defer></script>
+</body>
+</html>

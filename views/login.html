@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pokémon Bank - Ingreso con PIN al cajero automático.">
+    <title>Pokémon Bank | Iniciar sesión</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Estilos del proyecto -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header__inner">
+            <a href="../index.html" class="logo">
+                <span class="pokeball" aria-hidden="true"></span>
+                <span class="logo__text">Pokémon <strong>Bank</strong></span>
+            </a>
+            <nav class="nav">
+                <a href="../index.html" class="btn btn--small btn--outline-light">Volver al inicio</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="login">
+        <div class="container login__inner">
+            <section class="login__info">
+                <span class="badge">Acceso seguro</span>
+                <h1 class="login__title">Ingresa tu PIN</h1>
+                <p class="login__text">
+                    Digita tu PIN de 4 dígitos usando el teclado del cajero
+                    o el teclado de tu computadora.
+                </p>
+                <ul class="login__tips">
+                    <li>Presiona <strong>OK</strong> para confirmar.</li>
+                    <li>Presiona <strong>BORRAR</strong> para eliminar el último dígito.</li>
+                    <li>Presiona <strong>CANC</strong> para limpiar el PIN.</li>
+                    <li>Después de 3 intentos fallidos la tarjeta se bloquea.</li>
+                </ul>
+                <p class="login__demo">PIN de prueba: <strong>1234</strong></p>
+            </section>
+            <section class="atm atm--login" aria-label="Cajero automático">
+                <div class="atm__top">
+                    <span class="pokeball pokeball--small" aria-hidden="true"></span>
+                    <span>POKÉMON BANK</span>
+                </div>
+
+                <div class="atm__screen">
+                    <p class="atm__screen-title">INGRESE SU PIN</p>
+                    <p class="atm__screen-text" id="pin-message" aria-live="polite">
+                        Digite 4 dígitos
+                    </p>
+                    <div class="pin-dots" id="pin-dots" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+
+                <form id="login-form" autocomplete="off" novalidate>
+                    <label for="pin" class="sr-only">PIN</label>
+                    <input type="password" id="pin" name="pin" class="sr-only"
+                           inputmode="numeric" maxlength="4" pattern="[0-9]{4}" readonly>
+
+                    <div class="keypad" id="keypad">
+                        <button type="button" data-key="1">1</button>
+                        <button type="button" data-key="2">2</button>
+                        <button type="button" data-key="3">3</button>
+                        <button type="button" data-key="4">4</button>
+                        <button type="button" data-key="5">5</button>
+                        <button type="button" data-key="6">6</button>
+                        <button type="button" data-key="7">7</button>
+                        <button type="button" data-key="8">8</button>
+                        <button type="button" data-key="9">9</button>
+                        <button type="button" class="key--cancel" data-action="clear">CANC</button>
+                        <button type="button" data-key="0">0</button>
+                        <button type="submit" class="key--ok">OK</button>
+                        <button type="button" class="key--delete" data-action="delete">BORRAR</button>
+                    </div>
+                </form>
+
+                <div class="atm__slot" aria-hidden="true"></div>
+            </section>
+
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p><strong>Pokémon Bank</strong> &mdash; Proyecto de Cátedra</p>
+            <p>Universidad Don Bosco &middot; Lenguajes Interpretados en el Cliente</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js" defer></script>
+</body>
+</html>

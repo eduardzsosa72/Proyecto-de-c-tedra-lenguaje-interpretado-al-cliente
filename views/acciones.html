@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Pokémon Bank - Menú principal del cajero automático.">
+
+    <title>Pokémon Bank | Operaciones</title>
+
+    <!-- Fuentes del proyecto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Estilos compartidos -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <!-- 1. Encabezado -->
+    <header class="header">
+        <div class="container header__inner">
+
+            <a href="../index.html" class="logo">
+                <span class="pokeball" aria-hidden="true"></span>
+                <span class="logo__text">
+                    Pokémon <strong>Bank</strong>
+                </span>
+            </a>
+
+            <nav class="nav" aria-label="Navegación principal">
+                <a href="login.html"
+                   class="btn btn--small btn--outline-light">
+                    Ir al inicio de sesión
+                </a>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- 2. Contenido principal -->
+    <main>
+
+        <section class="section">
+            <div class="container">
+
+                <h1 class="section__title">
+                    Menú principal
+                </h1>
+
+                <p class="section__subtitle">
+                    ¡Bienvenido a Pokémon Bank!
+                    Selecciona la operación que deseas realizar.
+                </p>
+
+                <!-- 3. Resumen del saldo -->
+                <section class="card" aria-labelledby="saldo-titulo">
+                    <h2 class="card__title" id="saldo-titulo">
+                        Saldo disponible
+                    </h2>
+
+                    <p class="card__text">
+                        Consulta el dinero disponible en tu cuenta.
+                    </p>
+
+                    <p>
+                        <strong id="saldo-actual">Pendiente de configurar</strong>
+                    </p>
+                </section>
+
+                <!-- 4. Opciones del cajero -->
+                <section aria-label="Operaciones disponibles">
+
+                    <h2 class="section__title">
+                        ¿Qué deseas hacer?
+                    </h2>
+
+                    <div class="grid">
+
+                        <!-- Depósito -->
+                        <article class="card">
+                            <h3 class="card__title">Depósito</h3>
+
+                            <p class="card__text">
+                                Agrega dinero a tu cuenta.
+                            </p>
+
+                            <button type="button"
+                                    class="btn btn--blue"
+                                    data-action="deposit">
+                                Depositar
+                            </button>
+                        </article>
+
+                        <!-- Retiro -->
+                        <article class="card">
+                            <h3 class="card__title">Retiro</h3>
+
+                            <p class="card__text">
+                                Retira dinero de tu cuenta.
+                            </p>
+
+                            <button type="button"
+                                    class="btn btn--red"
+                                    data-action="withdraw">
+                                Retirar
+                            </button>
+                        </article>
+
+                        <!-- Pago de servicios -->
+                        <article class="card">
+                            <h3 class="card__title">Pago de servicios</h3>
+
+                            <p class="card__text">
+                                Paga energía, agua, internet o telefonía.
+                            </p>
+
+                            <button type="button"
+                                    class="btn btn--yellow"
+                                    data-action="services">
+                                Pagar servicios
+                            </button>
+                        </article>
+
+                        <!-- Historial -->
+                        <article class="card">
+                            <h3 class="card__title">Historial</h3>
+
+                            <p class="card__text">
+                                Consulta tus movimientos y transacciones.
+                            </p>
+
+                            <a href="historial.html"
+                               class="btn btn--blue">
+                                Ver historial
+                            </a>
+                        </article>
+
+                        <!-- Gráficos -->
+                        <article class="card">
+                            <h3 class="card__title">Gráficos</h3>
+
+                            <p class="card__text">
+                                Visualiza tus ingresos y egresos.
+                            </p>
+
+                            <a href="grafico.html"
+                               class="btn btn--blue">
+                                Ver gráficos
+                            </a>
+                        </article>
+
+                    </div>
+                </section>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 5. Pie de página -->
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p>
+                <strong>Pokémon Bank</strong> — Proyecto de Cátedra
+            </p>
+
+            <p>
+                Universidad Don Bosco · Lenguajes Interpretados en el Cliente
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript compartido -->
+    <script src="../js/main.js" defer></script>
+
+</body>
+</html>

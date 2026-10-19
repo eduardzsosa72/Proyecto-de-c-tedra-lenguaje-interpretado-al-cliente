@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investigación | validate.js - Validación de montos</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Framework CSS: Bootstrap 4.0 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+
+    <!-- Estilos del proyecto -->
+    <link rel="stylesheet" href="../../css/style.css">
+
+    <!-- Librería: validate.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark navbar-poke">
+        <div class="container">
+            <a class="navbar-brand logo" href="../../index.html">
+                <span class="pokeball" aria-hidden="true"></span>
+                <span>Pokémon <strong>Bank</strong></span>
+            </a>
+            <a href="../../index.html#librerias" class="btn btn-sm btn-outline-light">Volver a librerías</a>
+        </div>
+    </nav>
+
+    <main class="section">
+        <div class="container">
+
+            <div class="demo__header">
+                <span class="badge-poke">Investigación &middot; validate.js</span>
+                <h1 class="demo__title">Validación de montos</h1>
+                <p class="demo__lead">
+                    Prueba de concepto de las reglas que debe cumplir un monto antes de
+                    procesar un depósito, un retiro o el pago de un servicio.
+                </p>
+            </div>
+
+            <div class="row">
+                <!-- Explicación -->
+                <div class="col-lg-6 mb-4">
+                    <section class="card card-poke h-100 demo__panel">
+                        <div class="card-body">
+                            <h2>Reglas según la operación</h2>
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr><th>Operación</th><th>Reglas</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Depósito</td>
+                                            <td>Mayor a $ 0 y máximo $ 1,000 por operación.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Retiro</td>
+                                            <td>Múltiplo de $ 5 (billetes), máximo $ 500 y no mayor al saldo.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Servicio</td>
+                                            <td>Mayor a $ 0 y no mayor al saldo.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="card__text" style="margin-top: 12px;">
+                                En todas: el campo es obligatorio, debe ser un número y tener como
+                                máximo 2 decimales.
+                            </p>
+
+                            <h2>Funciones que se prueban</h2>
+                            <ul class="demo__list">
+                                <li><code>numericality</code> con <code>greaterThan</code>, <code>lessThanOrEqualTo</code> y <code>divisibleBy</code>.</li>
+                                <li><code>format</code>: máximo 2 decimales.</li>
+                                <li>Reglas que cambian según la operación (función que arma las reglas).</li>
+                                <li>Mensajes personalizados en español.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Demostración -->
+                <div class="col-lg-6 mb-4">
+                    <section class="card card-poke h-100 demo__panel">
+                        <div class="card-body">
+                            <h2>Demostración</h2>
+                            <div class="demo__row">
+                                <span>Saldo disponible</span>
+                                <strong id="saldo">$ 2,457.00</strong>
+                            </div>
+
+                            <form id="form-monto" novalidate style="margin-top: 20px;">
+                                <div class="form-group">
+                                    <label for="operacion" class="form-label">Operación</label>
+                                    <select id="operacion" name="operacion" class="form-control">
+                                        <option value="deposito">Depósito</option>
+                                        <option value="retiro" selected>Retiro</option>
+                                        <option value="servicio">Pago de servicio</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="monto" class="form-label">Monto ($)</label>
+                                    <input type="text" id="monto" name="monto" class="form-control"
+                                           inputmode="decimal" placeholder="Ejemplo: 100.00" autocomplete="off">
+                                    <span class="invalid-feedback" id="error-monto"></span>
+                                </div>
+                                <button type="submit" class="btn btn-danger">Validar monto</button>
+                            </form>
+
+                            <div class="demo__result d-none" id="resultado"></div>
+
+                            <p class="form-label" style="margin-top: 20px;">Pruebas rápidas (retiro)</p>
+                            <div class="demo__actions" id="pruebas">
+                                <button type="button" class="btn btn-sm btn-warning" data-monto="abc">abc</button>
+                                <button type="button" class="btn btn-sm btn-warning" data-monto="-20">-20</button>
+                                <button type="button" class="btn btn-sm btn-warning" data-monto="10.555">10.555</button>
+                                <button type="button" class="btn btn-sm btn-warning" data-monto="47">47</button>
+                                <button type="button" class="btn btn-sm btn-warning" data-monto="800">800</button>
+                                <button type="button" class="btn btn-sm btn-primary" data-monto="120">120</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Código -->
+            <section class="card card-poke card-poke--dark demo__panel">
+                <div class="card-body">
+                    <h2>Código principal</h2>
+                    <pre class="code"><code>function reglasRetiro(saldo) {
+    return {
+        monto: {
+            presence: { allowEmpty: false, message: "^Ingresa un monto" },
+            format: {
+                pattern: "^-?\\d+(\\.\\d{1,2})?$",
+                message: "^Ingresa un número válido con máximo 2 decimales"
+            },
+            numericality: {
+                greaterThan: 0,
+                lessThanOrEqualTo: Math.min(500, saldo),
+                divisibleBy: 5,
+                notGreaterThan: "^El monto debe ser mayor a $ 0",
+                notLessThanOrEqualTo: "^El monto supera el límite permitido",
+                notDivisibleBy: "^El cajero solo entrega múltiplos de $ 5"
+            }
+        }
+    };
+}
+
+const errores = validate({ monto: "47" }, reglasRetiro(2457), { fullMessages: false });
+// =&gt; { monto: ["El cajero solo entrega múltiplos de $ 5"] }</code></pre>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container d-md-flex justify-content-between text-center text-md-left">
+            <p><strong>Pokémon Bank</strong> &mdash; Investigación de librerías</p>
+            <p>Universidad Don Bosco &middot; Lenguajes Interpretados en el Cliente</p>
+        </div>
+    </footer>
+
+    <script>
+        const SALDO = 2457.00;
+        const LIMITE_DEPOSITO = 1000;
+        const LIMITE_RETIRO = 500;
+
+        const formato = (valor) =>
+            "$ " + valor.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        // Arma las reglas según la operación seleccionada
+        function reglasPara(operacion) {
+            const numericality = {
+                greaterThan: 0,
+                notValid: "^Ingresa un número válido",
+                notGreaterThan: "^El monto debe ser mayor a $ 0"
+            };
+
+            if (operacion === "deposito") {
+                numericality.lessThanOrEqualTo = LIMITE_DEPOSITO;
+                numericality.notLessThanOrEqualTo = `^El depósito máximo es ${formato(LIMITE_DEPOSITO)}`;
+            }
+
+            if (operacion === "retiro") {
+                const maximo = Math.min(LIMITE_RETIRO, SALDO);
+                numericality.lessThanOrEqualTo = maximo;
+                numericality.notLessThanOrEqualTo = `^El retiro máximo es ${formato(maximo)}`;
+                numericality.divisibleBy = 5;
+                numericality.notDivisibleBy = "^El cajero solo entrega múltiplos de $ 5";
+            }
+
+            if (operacion === "servicio") {
+                numericality.lessThanOrEqualTo = SALDO;
+                numericality.notLessThanOrEqualTo = "^Saldo insuficiente para este pago";
+            }
+
+            return {
+                monto: {
+                    presence: { allowEmpty: false, message: "^Ingresa un monto" },
+                    format: {
+                        pattern: "^-?\\d+(\\.\\d{1,2})?$",
+                        message: "^Ingresa un número válido con máximo 2 decimales"
+                    },
+                    numericality
+                }
+            };
+        }
+
+        const form = document.getElementById("form-monto");
+        const montoEl = document.getElementById("monto");
+        const errorEl = document.getElementById("error-monto");
+        const resultado = document.getElementById("resultado");
+
+        function validarMonto() {
+            const operacion = form.elements.operacion.value;
+            const datos = { monto: montoEl.value.trim() };
+            const errores = validate(datos, reglasPara(operacion), { fullMessages: false });
+
+            if (errores) {
+                const mensaje = errores.monto[0];
+                errorEl.textContent = mensaje;
+                montoEl.classList.add("is-invalid");
+                resultado.textContent = "Monto rechazado: " + mensaje + ".";
+                resultado.className = "demo__result is-error";
+                return;
+            }
+
+            const nombre = form.elements.operacion.selectedOptions[0].textContent;
+            errorEl.textContent = "";
+            montoEl.classList.remove("is-invalid");
+            resultado.textContent = `Monto válido para ${nombre.toLowerCase()}: ${formato(Number(datos.monto))}.`;
+            resultado.className = "demo__result is-success";
+        }
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            validarMonto();
+        });
+
+        // Al cambiar de operación se vuelve a validar con las nuevas reglas
+        form.elements.operacion.addEventListener("change", () => {
+            if (montoEl.value) validarMonto();
+        });
+
+        document.getElementById("pruebas").addEventListener("click", (e) => {
+            const btn = e.target.closest("button");
+            if (!btn) return;
+            form.elements.operacion.value = "retiro";
+            montoEl.value = btn.dataset.monto;
+            validarMonto();
+        });
+    </script>
+</body>
+</html>

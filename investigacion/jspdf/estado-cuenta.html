@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investigación | jsPDF - Estado de cuenta</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Framework CSS: Bootstrap 4.0 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+
+    <!-- Estilos del proyecto -->
+    <link rel="stylesheet" href="../../css/style.css">
+
+    <!-- Librerías: jsPDF + plugin AutoTable (tablas) -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark navbar-poke">
+        <div class="container">
+            <a class="navbar-brand logo" href="../../index.html">
+                <span class="pokeball" aria-hidden="true"></span>
+                <span>Pokémon <strong>Bank</strong></span>
+            </a>
+            <a href="../../index.html#librerias" class="btn btn-sm btn-outline-light">Volver a librerías</a>
+        </div>
+    </nav>
+
+    <main class="section">
+        <div class="container">
+
+            <div class="demo__header">
+                <span class="badge-poke">Investigación &middot; jsPDF + AutoTable</span>
+                <h1 class="demo__title">Estado de cuenta en PDF</h1>
+                <p class="demo__lead">
+                    Prueba de concepto del estado de cuenta mensual: un documento tamaño
+                    carta con los datos del cliente, un resumen y la tabla de movimientos.
+                </p>
+            </div>
+
+            <div class="row">
+                <!-- Explicación -->
+                <div class="col-lg-6 mb-4">
+                    <section class="card card-poke h-100 demo__panel">
+                        <div class="card-body">
+                            <h2>¿Qué se agrega?</h2>
+                            <p class="card__text">
+                                jsPDF por sí solo no dibuja tablas. Para eso se usa el plugin
+                                <strong>jspdf-autotable</strong>, que convierte un arreglo de datos
+                                en una tabla con encabezado, colores, alineación y salto de página
+                                automático.
+                            </p>
+
+                            <h2>Funciones que se prueban</h2>
+                            <ul class="demo__list">
+                                <li><code>new jsPDF({ format: "letter" })</code>: hoja tamaño carta.</li>
+                                <li><code>doc.autoTable({ head, body })</code>: tabla de movimientos.</li>
+                                <li><code>headStyles</code> y <code>columnStyles</code>: colores y montos alineados a la derecha.</li>
+                                <li><code>didDrawPage</code>: pie de página con número de página.</li>
+                                <li><code>doc.lastAutoTable.finalY</code>: escribir debajo de la tabla.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Resumen -->
+                <div class="col-lg-6 mb-4">
+                    <section class="card card-poke h-100 demo__panel">
+                        <div class="card-body">
+                            <h2>Demostración: octubre 2026</h2>
+                            <div class="demo__row"><span>Titular</span><span>Brock Harrison</span></div>
+                            <div class="demo__row"><span>Cuenta</span><span>POKE-7842-1956</span></div>
+                            <div class="demo__row"><span>Saldo inicial</span><span id="r-inicial"></span></div>
+                            <div class="demo__row"><span>Depósitos</span><span class="text-success" id="r-depositos"></span></div>
+                            <div class="demo__row"><span>Retiros y servicios</span><span class="text-danger" id="r-egresos"></span></div>
+                            <div class="demo__row"><span>Saldo final</span><strong id="r-final"></strong></div>
+
+                            <div class="demo__actions" style="margin-top: 20px;">
+                                <button type="button" class="btn btn-primary" id="btn-preview">Vista previa</button>
+                                <button type="button" class="btn btn-danger" id="btn-descargar">Descargar estado de cuenta</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Movimientos -->
+            <section class="card card-poke card-poke--dark demo__panel mb-4">
+                <div class="card-body">
+                    <h2>Movimientos que se incluyen en el PDF</h2>
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Tipo</th>
+                                    <th>Descripción</th>
+                                    <th>Monto</th>
+                                    <th>Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-movimientos"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vista previa -->
+            <section class="card card-poke card-poke--dark demo__panel mb-4 d-none" id="preview-card">
+                <div class="card-body">
+                    <h2>Vista previa del PDF</h2>
+                    <iframe id="preview" class="demo__preview" style="height: 600px;" title="Vista previa del estado de cuenta"></iframe>
+                </div>
+            </section>
+
+            <!-- Código -->
+            <section class="card card-poke card-poke--dark demo__panel">
+                <div class="card-body">
+                    <h2>Código principal</h2>
+                    <pre class="code"><code>const doc = new jsPDF({ unit: "mm", format: "letter" });
+
+doc.autoTable({
+    startY: 70,
+    head: [["Fecha", "Tipo", "Descripción", "Monto", "Saldo"]],
+    body: filas,                                   // arreglo de arreglos
+    headStyles: { fillColor: [227, 53, 13] },      // rojo Pokémon Bank
+    columnStyles: { 3: { halign: "right" }, 4: { halign: "right" } },
+    didDrawPage: (data) =&gt; {
+        doc.text("Página " + data.pageNumber, 196, 270, { align: "right" });
+    }
+});
+
+const y = doc.lastAutoTable.finalY + 10;           // debajo de la tabla
+doc.text("Saldo final: $ 2,457.00", 196, y, { align: "right" });
+doc.save("estado-cuenta.pdf");</code></pre>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container d-md-flex justify-content-between text-center text-md-left">
+            <p><strong>Pokémon Bank</strong> &mdash; Investigación de librerías</p>
+            <p>Universidad Don Bosco &middot; Lenguajes Interpretados en el Cliente</p>
+        </div>
+    </footer>
+
+    <script>
+        const { jsPDF } = window.jspdf;
+
+        const TITULAR = "Brock Harrison";
+        const CUENTA = "POKE-7842-1956";
+        const PERIODO = "Octubre 2026";
+        const SALDO_INICIAL = 1500.00;
+
+        // Movimientos de ejemplo (monto positivo = ingreso, negativo = egreso)
+        const movimientos = [
+            { fecha: "01/10/2026", tipo: "Servicio", descripcion: "Pago de telefonía",       monto: -35 },
+            { fecha: "03/10/2026", tipo: "Depósito", descripcion: "Depósito en efectivo",    monto: 500 },
+            { fecha: "05/10/2026", tipo: "Servicio", descripcion: "Pago de agua potable",    monto: -28 },
+            { fecha: "08/10/2026", tipo: "Retiro",   descripcion: "Retiro en cajero",        monto: -150 },
+            { fecha: "10/10/2026", tipo: "Servicio", descripcion: "Pago de internet",        monto: -45 },
+            { fecha: "12/10/2026", tipo: "Depósito", descripcion: "Depósito en efectivo",    monto: 600 },
+            { fecha: "14/10/2026", tipo: "Retiro",   descripcion: "Retiro en cajero",        monto: -200 },
+            { fecha: "15/10/2026", tipo: "Servicio", descripcion: "Pago de energía eléctrica", monto: -85 },
+            { fecha: "16/10/2026", tipo: "Depósito", descripcion: "Depósito en efectivo",    monto: 400 }
+        ];
+
+        const formato = (valor) =>
+            "$ " + valor.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        const formatoMovimiento = (monto) => (monto >= 0 ? "+ " : "- ") + formato(Math.abs(monto));
+
+        // Calcula el saldo después de cada movimiento
+        let saldo = SALDO_INICIAL;
+        const filas = movimientos.map((m) => {
+            saldo += m.monto;
+            return [m.fecha, m.tipo, m.descripcion, formatoMovimiento(m.monto), formato(saldo)];
+        });
+
+        const totalDepositos = movimientos.filter((m) => m.monto > 0).reduce((t, m) => t + m.monto, 0);
+        const totalEgresos = movimientos.filter((m) => m.monto < 0).reduce((t, m) => t + Math.abs(m.monto), 0);
+        const saldoFinal = saldo;
+
+        // Resumen y tabla en la página
+        document.getElementById("r-inicial").textContent = formato(SALDO_INICIAL);
+        document.getElementById("r-depositos").textContent = "+ " + formato(totalDepositos);
+        document.getElementById("r-egresos").textContent = "- " + formato(totalEgresos);
+        document.getElementById("r-final").textContent = formato(saldoFinal);
+
+        document.getElementById("tabla-movimientos").innerHTML = filas
+            .map((f, i) => `
+                <tr>
+                    <td>${f[0]}</td>
+                    <td>${f[1]}</td>
+                    <td>${f[2]}</td>
+                    <td class="${movimientos[i].monto >= 0 ? "text-success" : "text-danger"}">${f[3]}</td>
+                    <td>${f[4]}</td>
+                </tr>`)
+            .join("");
+
+        function crearEstadoCuenta() {
+            const doc = new jsPDF({ unit: "mm", format: "letter" });
+            const ancho = doc.internal.pageSize.getWidth();
+            const alto = doc.internal.pageSize.getHeight();
+            const margen = 16;
+
+            // Encabezado
+            doc.setFillColor(227, 53, 13);
+            doc.rect(0, 0, ancho, 28, "F");
+            doc.setFillColor(30, 30, 30);
+            doc.rect(0, 28, ancho, 2, "F");
+            doc.setTextColor(255, 255, 255);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(20);
+            doc.text("POKÉMON BANK", margen, 16);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(11);
+            doc.text("Estado de cuenta", margen, 23);
+            doc.text(PERIODO, ancho - margen, 16, { align: "right" });
+
+            // Datos del cliente
+            doc.setTextColor(30, 30, 30);
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "bold");
+            doc.text("Titular:", margen, 42);
+            doc.text("Cuenta:", margen, 48);
+            doc.text("Emitido:", margen, 54);
+            doc.setFont("helvetica", "normal");
+            doc.text(TITULAR, margen + 20, 42);
+            doc.text(CUENTA, margen + 20, 48);
+            doc.text(new Date().toLocaleDateString("es-SV"), margen + 20, 54);
+
+            // Resumen (columna derecha)
+            const xEtiqueta = ancho - margen - 60;
+            const resumen = [
+                ["Saldo inicial:", formato(SALDO_INICIAL)],
+                ["Depósitos:", "+ " + formato(totalDepositos)],
+                ["Retiros y servicios:", "- " + formato(totalEgresos)]
+            ];
+            resumen.forEach(([etiqueta, valor], i) => {
+                doc.text(etiqueta, xEtiqueta, 42 + i * 6);
+                doc.text(valor, ancho - margen, 42 + i * 6, { align: "right" });
+            });
+
+            // Tabla de movimientos
+            doc.autoTable({
+                startY: 64,
+                margin: { left: margen, right: margen },
+                head: [["Fecha", "Tipo", "Descripción", "Monto", "Saldo"]],
+                body: filas,
+                theme: "striped",
+                headStyles: { fillColor: [227, 53, 13], textColor: 255, fontStyle: "bold" },
+                styles: { font: "helvetica", fontSize: 9, cellPadding: 3 },
+                columnStyles: {
+                    3: { halign: "right" },
+                    4: { halign: "right" }
+                },
+                // Montos en verde (ingreso) o rojo (egreso)
+                didParseCell: (data) => {
+                    if (data.section === "head" && data.column.index >= 3) {
+                        data.cell.styles.halign = "right";
+                    }
+                    if (data.section === "body" && data.column.index === 3) {
+                        data.cell.styles.textColor =
+                            movimientos[data.row.index].monto >= 0 ? [46, 158, 79] : [214, 40, 40];
+                    }
+                },
+                // Pie de página en cada hoja
+                didDrawPage: (data) => {
+                    doc.setFontSize(8);
+                    doc.setTextColor(91, 97, 112);
+                    doc.text("Pokémon Bank - Documento generado por el cajero automático", margen, alto - 10);
+                    doc.text("Página " + data.pageNumber, ancho - margen, alto - 10, { align: "right" });
+                }
+            });
+
+            // Saldo final debajo de la tabla
+            const y = doc.lastAutoTable.finalY + 10;
+            doc.setFillColor(255, 203, 5);
+            doc.rect(ancho - margen - 70, y - 6, 70, 10, "F");
+            doc.setTextColor(30, 30, 30);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(11);
+            doc.text("SALDO FINAL:", ancho - margen - 66, y);
+            doc.text(formato(saldoFinal), ancho - margen - 4, y, { align: "right" });
+
+            return doc;
+        }
+
+        document.getElementById("btn-preview").addEventListener("click", () => {
+            document.getElementById("preview").src = crearEstadoCuenta().output("bloburl");
+            document.getElementById("preview-card").classList.remove("d-none");
+        });
+
+        document.getElementById("btn-descargar").addEventListener("click", () => {
+            crearEstadoCuenta().save("estado-cuenta-octubre-2026.pdf");
+        });
+    </script>
+</body>
+</html>

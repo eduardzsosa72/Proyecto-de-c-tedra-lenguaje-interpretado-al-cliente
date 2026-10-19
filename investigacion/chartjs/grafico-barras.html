@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investigación | Chart.js - Gráfico de barras</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Framework CSS: Bootstrap 4.0 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+
+    <!-- Estilos del proyecto -->
+    <link rel="stylesheet" href="../../css/style.css">
+
+    <!-- Librería: Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark navbar-poke">
+        <div class="container">
+            <a class="navbar-brand logo" href="../../index.html">
+                <span class="pokeball" aria-hidden="true"></span>
+                <span>Pokémon <strong>Bank</strong></span>
+            </a>
+            <a href="../../index.html#librerias" class="btn btn-sm btn-outline-light">Volver a librerías</a>
+        </div>
+    </nav>
+
+    <main class="section">
+        <div class="container">
+
+            <div class="demo__header">
+                <span class="badge-poke">Investigación &middot; Chart.js</span>
+                <h1 class="demo__title">Ingresos vs egresos por mes</h1>
+                <p class="demo__lead">
+                    Prueba de concepto del gráfico de barras que se mostrará en la vista
+                    de análisis, comparando depósitos contra retiros y pagos de servicios.
+                </p>
+            </div>
+
+            <!-- Gráfico -->
+            <section class="card card-poke card-poke--dark demo__panel mb-4">
+                <div class="card-body">
+                    <h2>Demostración</h2>
+                    <div class="demo__actions" style="margin-bottom: 16px;">
+                        <button type="button" class="btn btn-sm btn-danger" id="btn-agrupado">Barras agrupadas</button>
+                        <button type="button" class="btn btn-sm btn-warning" id="btn-apilado">Barras apiladas</button>
+                        <button type="button" class="btn btn-sm btn-primary" id="btn-horizontal">Horizontal / vertical</button>
+                    </div>
+                    <div class="chart-box">
+                        <canvas id="grafico-barras" aria-label="Gráfico de ingresos y egresos por mes" role="img"></canvas>
+                    </div>
+                    <p class="demo__hint">
+                        Pasa el cursor sobre las barras para ver el monto exacto. Haz clic en
+                        la leyenda para ocultar o mostrar una serie.
+                    </p>
+                </div>
+            </section>
+
+            <div class="row">
+                <!-- Explicación -->
+                <div class="col-lg-6 mb-4">
+                    <section class="card card-poke h-100 demo__panel">
+                        <div class="card-body">
+                            <h2>¿Qué es Chart.js?</h2>
+                            <p class="card__text">
+                                Es una librería de código abierto que dibuja gráficos sobre un
+                                elemento <code>&lt;canvas&gt;</code>. Los gráficos son interactivos
+                                (tooltips, leyenda que oculta series), animados y se adaptan al
+                                tamaño de la pantalla.
+                            </p>
+
+                            <h2>Funciones que se prueban</h2>
+                            <ul class="demo__list">
+                                <li><code>type: "bar"</code> con dos series (ingresos y egresos).</li>
+                                <li><code>scales.x.stacked</code>: cambiar a barras apiladas.</li>
+                                <li><code>indexAxis: "y"</code>: barras horizontales.</li>
+                                <li><code>tooltip.callbacks.label</code>: mostrar montos con formato $.</li>
+                                <li><code>chart.update()</code>: redibujar sin crear el gráfico de nuevo.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Datos -->
+                <div class="col-lg-6 mb-4">
+                    <section class="card card-poke h-100 demo__panel">
+                        <div class="card-body">
+                            <h2>Datos utilizados</h2>
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr><th>Mes</th><th>Ingresos</th><th>Egresos</th><th>Balance</th></tr>
+                                    </thead>
+                                    <tbody id="tabla-datos"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Código -->
+            <section class="card card-poke card-poke--dark demo__panel">
+                <div class="card-body">
+                    <h2>Código principal</h2>
+                    <pre class="code"><code>const grafico = new Chart(document.getElementById("grafico-barras"), {
+    type: "bar",
+    data: {
+        labels: ["Jul", "Ago", "Sep", "Oct"],
+        datasets: [
+            { label: "Ingresos", data: [450, 380, 520, 1500], backgroundColor: "#2e9e4f" },
+            { label: "Egresos",  data: [280, 410, 320, 543],  backgroundColor: "#e3350d" }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            tooltip: {
+                callbacks: { label: (ctx) =&gt; ctx.dataset.label + ": $ " + ctx.parsed.y }
+            }
+        }
+    }
+});
+
+// Cambiar a barras apiladas
+grafico.options.scales.x.stacked = true;
+grafico.options.scales.y.stacked = true;
+grafico.update();</code></pre>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container d-md-flex justify-content-between text-center text-md-left">
+            <p><strong>Pokémon Bank</strong> &mdash; Investigación de librerías</p>
+            <p>Universidad Don Bosco &middot; Lenguajes Interpretados en el Cliente</p>
+        </div>
+    </footer>
+
+    <script>
+        const meses = ["Julio", "Agosto", "Septiembre", "Octubre"];
+        const ingresos = [450, 380, 520, 1500];
+        const egresos = [280, 410, 320, 543];
+
+        const formato = (valor) =>
+            "$ " + valor.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        // Tabla de datos
+        document.getElementById("tabla-datos").innerHTML = meses
+            .map((mes, i) => {
+                const balance = ingresos[i] - egresos[i];
+                return `
+                    <tr>
+                        <td>${mes}</td>
+                        <td class="text-success">${formato(ingresos[i])}</td>
+                        <td class="text-danger">${formato(egresos[i])}</td>
+                        <td class="${balance >= 0 ? "text-success" : "text-danger"}">${formato(balance)}</td>
+                    </tr>`;
+            })
+            .join("");
+
+        // Fuente del proyecto para el gráfico
+        Chart.defaults.font.family = "Poppins, system-ui, sans-serif";
+
+        const grafico = new Chart(document.getElementById("grafico-barras"), {
+            type: "bar",
+            data: {
+                labels: meses.map((m) => m.slice(0, 3)),
+                datasets: [
+                    {
+                        label: "Ingresos (depósitos)",
+                        data: ingresos,
+                        backgroundColor: "#2e9e4f",
+                        borderRadius: 6
+                    },
+                    {
+                        label: "Egresos (retiros + servicios)",
+                        data: egresos,
+                        backgroundColor: "#e3350d",
+                        borderRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: "x",
+                scales: {
+                    x: { stacked: false, grid: { display: false } },
+                    y: {
+                        stacked: false,
+                        beginAtZero: true,
+                        ticks: { callback: (valor) => "$ " + valor }
+                    }
+                },
+                plugins: {
+                    legend: { position: "bottom" },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => {
+                                const valor = grafico.options.indexAxis === "y" ? ctx.parsed.x : ctx.parsed.y;
+                                return `${ctx.dataset.label}: ${formato(valor)}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        function apilar(apilado) {
+            grafico.options.scales.x.stacked = apilado;
+            grafico.options.scales.y.stacked = apilado;
+            grafico.update();
+        }
+
+        document.getElementById("btn-agrupado").addEventListener("click", () => apilar(false));
+        document.getElementById("btn-apilado").addEventListener("click", () => apilar(true));
+
+        // Intercambia la orientación y el eje que lleva el formato de moneda
+        document.getElementById("btn-horizontal").addEventListener("click", () => {
+            const horizontal = grafico.options.indexAxis === "x";
+            const { x, y } = grafico.options.scales;
+
+            grafico.options.indexAxis = horizontal ? "y" : "x";
+            [x.ticks.callback, y.ticks.callback] = [y.ticks.callback, x.ticks.callback];
+            [x.grid.display, y.grid.display] = [y.grid.display !== false, x.grid.display !== false];
+            [x.beginAtZero, y.beginAtZero] = [y.beginAtZero, x.beginAtZero];
+            grafico.update();
+        });
+    </script>
+</body>
+</html>

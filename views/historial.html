@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pokémon Bank - Historial de transacciones del cajero automático.">
+    <title>Pokémon Bank | Historial</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Estilos del proyecto -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- ===== Encabezado ===== -->
+    <header class="header">
+        <div class="container header__inner">
+            <a href="../index.html" class="logo">
+                <span class="pokeball" aria-hidden="true"></span>
+                <span class="logo__text">Pokémon <strong>Bank</strong></span>
+            </a>
+            <nav class="nav">
+                <a href="acciones.html" class="btn btn--small btn--outline-light">Volver a acciones</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- ===== Título de la sección ===== -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section__title">Historial de transacciones</h2>
+                <p class="section__subtitle">
+                    Brock Harrison &middot; Cuenta <strong>POKE-7842-1956</strong>
+                </p>
+
+                <!-- Resumen rápido -->
+                <div class="grid" style="margin-bottom: 32px;">
+                    <article class="card">
+                        <h3 class="card__title">Total depósitos</h3>
+                        <p class="card__text text-success" style="font-size: 1.4rem; font-weight: 700;">
+                            $ 1,850.00
+                        </p>
+                    </article>
+                    <article class="card">
+                        <h3 class="card__title">Total retiros</h3>
+                        <p class="card__text text-danger" style="font-size: 1.4rem; font-weight: 700;">
+                            $ 980.00
+                        </p>
+                    </article>
+                    <article class="card">
+                        <h3 class="card__title">Pagos de servicios</h3>
+                        <p class="card__text" style="font-size: 1.4rem; font-weight: 700; color: var(--blue);">
+                            $ 285.00
+                        </p>
+                    </article>
+                </div>
+
+                <!-- Tabla de historial -->
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th>Descripción</th>
+                                <th>Monto</th>
+                                <th>Saldo resultante</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>16/10/2026</td>
+                                <td><span class="badge-tipo badge-tipo--deposito">Depósito</span></td>
+                                <td>Depósito en efectivo</td>
+                                <td class="text-success">+ $ 400.00</td>
+                                <td>$ 2,450.00</td>
+                            </tr>
+                            <tr>
+                                <td>15/10/2026</td>
+                                <td><span class="badge-tipo badge-tipo--servicio">Servicio</span></td>
+                                <td>Pago de energía eléctrica</td>
+                                <td class="text-danger">- $ 85.00</td>
+                                <td>$ 2,050.00</td>
+                            </tr>
+                            <tr>
+                                <td>14/10/2026</td>
+                                <td><span class="badge-tipo badge-tipo--retiro">Retiro</span></td>
+                                <td>Retiro en cajero</td>
+                                <td class="text-danger">- $ 200.00</td>
+                                <td>$ 2,135.00</td>
+                            </tr>
+                            <tr>
+                                <td>12/10/2026</td>
+                                <td><span class="badge-tipo badge-tipo--deposito">Depósito</span></td>
+                                <td>Depósito en efectivo</td>
+                                <td class="text-success">+ $ 600.00</td>
+                                <td>$ 2,335.00</td>
+                            </tr>
+                            <tr>
+                                <td>10/10/2026</td>
+                                <td><span class="badge-tipo badge-tipo--servicio">Servicio</span></td>
+                                <td>Pago de internet</td>
+                                <td class="text-danger">- $ 45.00</td>
+                                <td>$ 1,735.00</td>
+                            </tr>
+                            <tr>
+                                <td>08/10/2026</td>
+                                <td><span class="badge-tipo badge-tipo--retiro">Retiro</span></td>
+                                <td>Retiro en cajero</td>
+                                <td class="text-danger">- $ 150.00</td>
+                                <td>$ 1,780.00</td>
+                            </tr>
+                            <tr>
+                                <td>05/10/2026</td>
+                                <td><span class="badge-tipo badge-tipo--servicio">Servicio</span></td>
+                                <td>Pago de agua potable</td>
+                                <td class="text-danger">- $ 28.00</td>
+                                <td>$ 1,930.00</td>
+                            </tr>
+                            <tr>
+                                <td>03/10/2026</td>
+                                <td><span class="badge-tipo badge-tipo--deposito">Depósito</span></td>
+                                <td>Depósito en efectivo</td>
+                                <td class="text-success">+ $ 500.00</td>
+                                <td>$ 1,958.00</td>
+                            </tr>
+                            <tr>
+                                <td>01/10/2026</td>
+                                <td><span class="badge-tipo badge-tipo--servicio">Servicio</span></td>
+                                <td>Pago de telefonía</td>
+                                <td class="text-danger">- $ 35.00</td>
+                                <td>$ 1,458.00</td>
+                            </tr>
+                            <tr>
+                                <td>28/09/2026</td>
+                                <td><span class="badge-tipo badge-tipo--retiro">Retiro</span></td>
+                                <td>Retiro en cajero</td>
+                                <td class="text-danger">- $ 100.00</td>
+                                <td>$ 1,493.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="center" style="margin-top: 40px;">
+                    <a href="acciones.html" class="btn btn--yellow btn--large">Volver a acciones</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== Pie de página ===== -->
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p><strong>Pokémon Bank</strong> &mdash; Proyecto de Cátedra</p>
+            <p>Universidad Don Bosco &middot; Lenguajes Interpretados en el Cliente</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js" defer></script>
+</body>
+</html>

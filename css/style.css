@@ -793,3 +793,243 @@ ol {
         height: 150px;
     }
 }
+
+/* ESTILO DEPOSITO */
+
+.deposito {
+    background: var(--gray-100);
+}
+
+.deposito__card {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 36px;
+}
+
+/* TARJETA */
+
+.deposito__heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.deposito__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: var(--radius);
+    background: #e5f5e9;
+    color: var(--success);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* DATOS CUENRTA */
+
+.deposito__cuenta {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 28px;
+}
+
+.deposito__cuenta h3 {
+    font-size: 1.3rem;
+    margin: 6px 0;
+}
+
+/* INFO, OPERACION */
+
+.deposito__info {
+    background: #edf5ff;
+    border-left: 5px solid var(--blue);
+    padding: 18px;
+    border-radius: 0 var(--radius)
+                   var(--radius) 0;
+    margin-top: 24px;
+}
+
+.deposito__info strong {
+    color: var(--blue-dark);
+}
+
+.deposito__info p {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+/* BOTONES */
+
+.deposito__acciones {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 30px;
+}
+
+.deposito__acciones .btn {
+    flex: 1;
+    text-align: center;
+}
+
+.deposito__cancelar {
+    background: var(--gray-200);
+    color: var(--black);
+}
+
+.deposito__cancelar:hover {
+    background: var(--gray-400);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+
+    .deposito__card {
+        padding: 22px 18px;
+    }
+
+    .deposito__heading {
+        align-items: flex-start;
+    }
+
+    .deposito__icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+    }
+
+    .deposito__acciones {
+        flex-direction: column;
+    }
+
+    .deposito__acciones .btn {
+        width: 100%;
+    }
+}
+
+/* ESTILO RETIRO */
+
+.retiro {
+    background: var(--gray-100);
+}
+
+
+.retiro__card {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 36px;
+}
+
+
+.retiro__heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.retiro__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: var(--radius);
+    background: #fde8e5;
+    color: var(--danger);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* INFO CLIENTE */
+
+.retiro__cuenta {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 28px;
+}
+
+.retiro__cuenta h3 {
+    font-size: 1.3rem;
+    margin: 6px 0;
+}
+
+
+.retiro__info {
+    background: #fff7e5;
+    border-left: 5px solid var(--warning);
+    padding: 18px;
+    border-radius: 0 var(--radius)
+                   var(--radius) 0;
+    margin-top: 24px;
+}
+
+.retiro__info strong {
+    color: #805700;
+}
+
+.retiro__info p {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+
+.retiro__acciones {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 30px;
+}
+
+.retiro__acciones .btn {
+    flex: 1;
+    text-align: center;
+}
+
+.retiro__cancelar {
+    background: var(--gray-200);
+    color: var(--black);
+}
+
+.retiro__cancelar:hover {
+    background: var(--gray-400);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+
+    .retiro__card {
+        padding: 22px 18px;
+    }
+
+    .retiro__heading {
+        align-items: flex-start;
+    }
+
+    .retiro__icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.5rem;
+    }
+
+    .retiro__acciones {
+        flex-direction: column;
+    }
+
+    .retiro__acciones .btn {
+        width: 100%;
+    }
+}

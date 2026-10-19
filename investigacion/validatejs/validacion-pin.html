@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investigación | validate.js - Validación de PIN</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Framework CSS: Bootstrap 4.0 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+
+    <!-- Estilos del proyecto -->
+    <link rel="stylesheet" href="../../css/style.css">
+
+    <!-- Librería: validate.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark navbar-poke">
+        <div class="container">
+            <a class="navbar-brand logo" href="../../index.html">
+                <span class="pokeball" aria-hidden="true"></span>
+                <span>Pokémon <strong>Bank</strong></span>
+            </a>
+            <a href="../../index.html#librerias" class="btn btn-sm btn-outline-light">Volver a librerías</a>
+        </div>
+    </nav>
+
+    <main class="section">
+        <div class="container">
+
+            <div class="demo__header">
+                <span class="badge-poke">Investigación &middot; validate.js</span>
+                <h1 class="demo__title">Reglas de validación del PIN</h1>
+                <p class="demo__lead">
+                    Prueba de concepto de cómo validar el PIN de 4 dígitos: tanto al
+                    iniciar sesión como al crear o cambiar el PIN de la tarjeta.
+                </p>
+            </div>
+
+            <div class="row">
+                <!-- Explicación -->
+                <div class="col-lg-6 mb-4">
+                    <section class="card card-poke h-100 demo__panel">
+                        <div class="card-body">
+                            <h2>¿Qué es validate.js?</h2>
+                            <p class="card__text">
+                                Es una librería que valida datos a partir de un objeto de
+                                <strong>reglas (constraints)</strong>. En lugar de escribir muchos
+                                <code>if</code>, se declara qué debe cumplir cada campo y la función
+                                <code>validate()</code> devuelve los errores encontrados, o
+                                <code>undefined</code> si todo está bien.
+                            </p>
+
+                            <h2>Reglas aplicadas al PIN</h2>
+                            <ul class="demo__list">
+                                <li><code>presence</code>: el campo no puede estar vacío.</li>
+                                <li><code>length: { is: 4 }</code>: exactamente 4 caracteres.</li>
+                                <li><code>format</code>: solo números (<code>^[0-9]{4}$</code>).</li>
+                                <li><code>exclusion</code>: no se permiten PIN fáciles como 0000 o 1234 (solo al crear PIN).</li>
+                                <li><code>equality</code>: la confirmación debe ser igual al PIN nuevo.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Demostración -->
+                <div class="col-lg-6 mb-4">
+                    <section class="card card-poke h-100 demo__panel">
+                        <div class="card-body">
+                            <h2>Demostración: crear PIN</h2>
+
+                            <form id="form-pin" novalidate>
+                                <div class="form-group">
+                                    <label for="pin" class="form-label">PIN nuevo</label>
+                                    <input type="password" id="pin" name="pin" class="form-control"
+                                           maxlength="6" inputmode="numeric" autocomplete="off">
+                                    <span class="invalid-feedback" data-error="pin"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmacion" class="form-label">Confirmar PIN</label>
+                                    <input type="password" id="confirmacion" name="confirmacion" class="form-control"
+                                           maxlength="6" inputmode="numeric" autocomplete="off">
+                                    <span class="invalid-feedback" data-error="confirmacion"></span>
+                                </div>
+                                <button type="submit" class="btn btn-danger">Guardar PIN</button>
+                            </form>
+
+                            <div class="demo__result d-none" id="resultado"></div>
+
+                            <p class="form-label" style="margin-top: 20px;">Pruebas rápidas</p>
+                            <div class="demo__actions" id="pruebas">
+                                <button type="button" class="btn btn-sm btn-warning" data-pin="" data-conf="">Vacío</button>
+                                <button type="button" class="btn btn-sm btn-warning" data-pin="123" data-conf="123">123</button>
+                                <button type="button" class="btn btn-sm btn-warning" data-pin="12a4" data-conf="12a4">12a4</button>
+                                <button type="button" class="btn btn-sm btn-warning" data-pin="0000" data-conf="0000">0000</button>
+                                <button type="button" class="btn btn-sm btn-warning" data-pin="4826" data-conf="4862">No coinciden</button>
+                                <button type="button" class="btn btn-sm btn-primary" data-pin="4826" data-conf="4826">Válido</button>
+                            </div>
+                            <p class="demo__hint">
+                                Los errores también se muestran mientras escribes, al salir de cada campo.
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Código -->
+            <section class="card card-poke card-poke--dark demo__panel">
+                <div class="card-body">
+                    <h2>Código principal</h2>
+                    <pre class="code"><code>const reglas = {
+    pin: {
+        presence: { allowEmpty: false, message: "^Ingresa tu PIN" },
+        length:   { is: 4, wrongLength: "^El PIN debe tener exactamente 4 dígitos" },
+        format:   { pattern: "^[0-9]{4}$", message: "^El PIN solo puede contener números" },
+        exclusion:{ within: ["0000", "1111", "1234", "4321"], message: "^Ese PIN es muy fácil de adivinar" }
+    },
+    confirmacion: {
+        presence: { allowEmpty: false, message: "^Confirma tu PIN" },
+        equality: { attribute: "pin", message: "^Los PIN no coinciden" }
+    }
+};
+
+const errores = validate({ pin: "0000", confirmacion: "0000" }, reglas, { fullMessages: false });
+// =&gt; { pin: ["Ese PIN es muy fácil de adivinar"] }</code></pre>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container d-md-flex justify-content-between text-center text-md-left">
+            <p><strong>Pokémon Bank</strong> &mdash; Investigación de librerías</p>
+            <p>Universidad Don Bosco &middot; Lenguajes Interpretados en el Cliente</p>
+        </div>
+    </footer>
+
+    <script>
+        // El "^" al inicio evita que validate.js anteponga el nombre del campo
+        const reglas = {
+            pin: {
+                presence: { allowEmpty: false, message: "^Ingresa tu PIN" },
+                length: { is: 4, wrongLength: "^El PIN debe tener exactamente 4 dígitos" },
+                format: { pattern: "^[0-9]{4}$", message: "^El PIN solo puede contener números" },
+                exclusion: {
+                    within: ["0000", "1111", "2222", "3333", "4444", "5555",
+                             "6666", "7777", "8888", "9999", "1234", "4321"],
+                    message: "^Ese PIN es muy fácil de adivinar, elige otro"
+                }
+            },
+            confirmacion: {
+                presence: { allowEmpty: false, message: "^Confirma tu PIN" },
+                equality: { attribute: "pin", message: "^Los PIN no coinciden" }
+            }
+        };
+
+        const form = document.getElementById("form-pin");
+        const resultado = document.getElementById("resultado");
+
+        // Muestra solo el primer error de cada campo
+        function mostrarErrores(errores = {}, campos = Object.keys(reglas)) {
+            campos.forEach((campo) => {
+                const input = form.elements[campo];
+                const mensaje = errores[campo] ? errores[campo][0] : "";
+                form.querySelector(`[data-error="${campo}"]`).textContent = mensaje;
+                input.classList.toggle("is-invalid", Boolean(mensaje));
+            });
+        }
+
+        function validarFormulario() {
+            const datos = validate.collectFormValues(form, { trim: true });
+            const errores = validate(datos, reglas, { fullMessages: false });
+            mostrarErrores(errores || {});
+
+            if (errores) {
+                resultado.textContent = "El PIN no cumple las reglas. Revisa los mensajes en rojo.";
+                resultado.className = "demo__result is-error";
+            } else {
+                resultado.textContent = "PIN válido. En el cajero real aquí se guardaría el nuevo PIN.";
+                resultado.className = "demo__result is-success";
+            }
+        }
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            validarFormulario();
+        });
+
+        // Validación de un solo campo al salir de él
+        form.querySelectorAll("input").forEach((input) => {
+            input.addEventListener("blur", () => {
+                if (!input.value) return;
+                const datos = validate.collectFormValues(form, { trim: true });
+                const errores = validate(datos, reglas, { fullMessages: false }) || {};
+                mostrarErrores(errores, [input.name]);
+            });
+        });
+
+        // Botones de prueba
+        document.getElementById("pruebas").addEventListener("click", (e) => {
+            const btn = e.target.closest("button");
+            if (!btn) return;
+            form.elements.pin.value = btn.dataset.pin;
+            form.elements.confirmacion.value = btn.dataset.conf;
+            validarFormulario();
+        });
+    </script>
+</body>
+</html>

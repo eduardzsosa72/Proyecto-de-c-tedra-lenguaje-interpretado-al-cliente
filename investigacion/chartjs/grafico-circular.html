@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investigación | Chart.js - Gráfico circular</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Framework CSS: Bootstrap 4.0 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+
+    <!-- Estilos del proyecto -->
+    <link rel="stylesheet" href="../../css/style.css">
+
+    <!-- Librería: Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark navbar-poke">
+        <div class="container">
+            <a class="navbar-brand logo" href="../../index.html">
+                <span class="pokeball" aria-hidden="true"></span>
+                <span>Pokémon <strong>Bank</strong></span>
+            </a>
+            <a href="../../index.html#librerias" class="btn btn-sm btn-outline-light">Volver a librerías</a>
+        </div>
+    </nav>
+
+    <main class="section">
+        <div class="container">
+
+            <div class="demo__header">
+                <span class="badge-poke">Investigación &middot; Chart.js</span>
+                <h1 class="demo__title">Distribución del pago de servicios</h1>
+                <p class="demo__lead">
+                    Prueba de concepto del gráfico circular que mostrará qué porcentaje
+                    del dinero se fue en cada servicio durante el mes.
+                </p>
+            </div>
+
+            <div class="row">
+                <!-- Gráfico -->
+                <div class="col-lg-6 mb-4">
+                    <section class="card card-poke h-100 demo__panel">
+                        <div class="card-body">
+                            <h2>Demostración: octubre 2026</h2>
+                            <div class="demo__actions" style="margin-bottom: 16px;">
+                                <button type="button" class="btn btn-sm btn-danger" id="btn-dona">Dona</button>
+                                <button type="button" class="btn btn-sm btn-warning" id="btn-pastel">Pastel</button>
+                            </div>
+                            <div class="chart-box">
+                                <canvas id="grafico-circular" aria-label="Gráfico de distribución del pago de servicios" role="img"></canvas>
+                            </div>
+                            <p class="demo__hint">
+                                Haz clic en un servicio de la leyenda para quitarlo; los porcentajes
+                                se recalculan solos.
+                            </p>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Datos -->
+                <div class="col-lg-6 mb-4">
+                    <section class="card card-poke h-100 demo__panel">
+                        <div class="card-body">
+                            <h2>Datos utilizados</h2>
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr><th>Servicio</th><th>Monto</th><th>%</th></tr>
+                                    </thead>
+                                    <tbody id="tabla-datos"></tbody>
+                                </table>
+                            </div>
+
+                            <h2>¿Por qué un gráfico circular?</h2>
+                            <p class="card__text">
+                                Sirve para mostrar <strong>partes de un total</strong>. Aquí el total
+                                es lo pagado en servicios y cada porción es un servicio. Con pocas
+                                categorías (4) se lee con facilidad.
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <section class="card card-poke h-100 demo__panel">
+                        <div class="card-body">
+                            <h2>Funciones que se prueban</h2>
+                            <ul class="demo__list">
+                                <li><code>type: "doughnut"</code> y <code>type: "pie"</code>.</li>
+                                <li><code>cutout</code>: tamaño del hueco central de la dona.</li>
+                                <li>Tooltip que calcula el porcentaje de cada servicio.</li>
+                                <li>Plugin propio que escribe el total en el centro de la dona.</li>
+                                <li><code>chart.config.type</code> + <code>update()</code>: cambiar de tipo.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <section class="card card-poke h-100 demo__panel">
+                        <div class="card-body">
+                            <h2>Plugin del total central</h2>
+                            <p class="card__text">
+                                Chart.js permite crear <strong>plugins</strong> que dibujan sobre el
+                                canvas. El plugin <code>totalCentro</code> usa el hook
+                                <code>afterDraw</code> para escribir el total pagado en el centro,
+                                sumando solo los servicios visibles.
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Código -->
+            <section class="card card-poke card-poke--dark demo__panel">
+                <div class="card-body">
+                    <h2>Código principal</h2>
+                    <pre class="code"><code>new Chart(document.getElementById("grafico-circular"), {
+    type: "doughnut",
+    data: {
+        labels: ["Energía eléctrica", "Internet", "Telefonía", "Agua potable"],
+        datasets: [{
+            data: [85, 45, 35, 28],
+            backgroundColor: ["#ffcb05", "#2a75bb", "#2e9e4f", "#e3350d"]
+        }]
+    },
+    options: {
+        cutout: "60%",
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: (ctx) =&gt; {
+                        const total = ctx.dataset.data.reduce((a, b) =&gt; a + b, 0);
+                        const pct = (ctx.parsed / total * 100).toFixed(1);
+                        return `${ctx.label}: $ ${ctx.parsed} (${pct}%)`;
+                    }
+                }
+            }
+        }
+    }
+});</code></pre>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container d-md-flex justify-content-between text-center text-md-left">
+            <p><strong>Pokémon Bank</strong> &mdash; Investigación de librerías</p>
+            <p>Universidad Don Bosco &middot; Lenguajes Interpretados en el Cliente</p>
+        </div>
+    </footer>
+
+    <script>
+        const servicios = ["Energía eléctrica", "Internet", "Telefonía", "Agua potable"];
+        const montos = [85, 45, 35, 28];
+        const colores = ["#ffcb05", "#2a75bb", "#2e9e4f", "#e3350d"];
+        const total = montos.reduce((a, b) => a + b, 0);
+
+        const formato = (valor) =>
+            "$ " + valor.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        // Tabla de datos
+        document.getElementById("tabla-datos").innerHTML =
+            servicios
+                .map((s, i) => `
+                    <tr>
+                        <td>${s}</td>
+                        <td>${formato(montos[i])}</td>
+                        <td>${((montos[i] / total) * 100).toFixed(1)}%</td>
+                    </tr>`)
+                .join("") +
+            `<tr><td><strong>Total</strong></td><td><strong>${formato(total)}</strong></td><td><strong>100%</strong></td></tr>`;
+
+        // Suma solo las porciones visibles (las que no se ocultaron en la leyenda)
+        function totalVisible(chart) {
+            return chart.data.datasets[0].data.reduce(
+                (suma, valor, i) => (chart.getDataVisibility(i) ? suma + valor : suma), 0);
+        }
+
+        // Plugin propio: escribe el total en el centro de la dona
+        const totalCentro = {
+            id: "totalCentro",
+            afterDraw(chart) {
+                if (chart.config.type !== "doughnut") return;
+                const { ctx } = chart;
+                const meta = chart.getDatasetMeta(0);
+                if (!meta.data.length) return;
+                const { x, y } = meta.data[0];
+
+                ctx.save();
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillStyle = "#5b6170";
+                ctx.font = "500 13px Poppins, sans-serif";
+                ctx.fillText("Total pagado", x, y - 12);
+                ctx.fillStyle = "#1e1e1e";
+                ctx.font = "700 20px Poppins, sans-serif";
+                ctx.fillText(formato(totalVisible(chart)), x, y + 12);
+                ctx.restore();
+            }
+        };
+
+        Chart.defaults.font.family = "Poppins, system-ui, sans-serif";
+
+        const grafico = new Chart(document.getElementById("grafico-circular"), {
+            type: "doughnut",
+            data: {
+                labels: servicios,
+                datasets: [{
+                    data: montos,
+                    backgroundColor: colores,
+                    borderColor: "#ffffff",
+                    borderWidth: 3,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: "60%",
+                plugins: {
+                    legend: { position: "bottom" },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => {
+                                const pct = ((ctx.parsed / totalVisible(ctx.chart)) * 100).toFixed(1);
+                                return ` ${ctx.label}: ${formato(ctx.parsed)} (${pct}%)`;
+                            }
+                        }
+                    }
+                }
+            },
+            plugins: [totalCentro]
+        });
+
+        function cambiarTipo(tipo) {
+            grafico.config.type = tipo;
+            grafico.options.cutout = tipo === "doughnut" ? "60%" : 0;
+            grafico.update();
+        }
+
+        document.getElementById("btn-dona").addEventListener("click", () => cambiarTipo("doughnut"));
+        document.getElementById("btn-pastel").addEventListener("click", () => cambiarTipo("pie"));
+    </script>
+</body>
+</html>

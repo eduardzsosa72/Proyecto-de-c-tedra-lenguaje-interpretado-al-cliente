@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pokémon Bank - Gráficos de análisis de transacciones.">
+    <meta name="description" content="Pokémon Bank - Análisis gráfico de transacciones.">
     <title>Pokémon Bank | Gráficos</title>
+
+    <!-- Framework CSS: Bootstrap 4.0 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,130 +17,117 @@
     <!-- Estilos del proyecto -->
     <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-    <!-- ===== Encabezado ===== -->
-    <header class="header">
-        <div class="container header__inner">
-            <a href="../index.html" class="logo">
+<body data-page="grafico">
+
+    <!-- ===== Barra de navegación ===== -->
+    <nav class="navbar navbar-expand-md navbar-dark navbar-poke sticky-top">
+        <div class="container">
+            <a class="navbar-brand logo" href="acciones.html">
                 <span class="pokeball" aria-hidden="true"></span>
-                <span class="logo__text">Pokémon <strong>Bank</strong></span>
+                <span>Pokémon <strong>Bank</strong></span>
             </a>
-            <nav class="nav">
-                <a href="acciones.html" class="btn btn--small btn--outline-light">Volver a acciones</a>
-            </nav>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"
+                    aria-controls="menu" aria-expanded="false" aria-label="Mostrar menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ml-auto align-items-md-center">
+                    <li class="nav-item"><a class="nav-link" href="acciones.html">Acciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="historial.html">Historial</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="grafico.html">Gráficos</a></li>
+                    <li class="nav-item ml-md-3 my-2 my-md-0">
+                        <a href="login.html" class="btn btn-sm btn-outline-light" data-action="salir">Salir</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </header>
+    </nav>
 
     <main>
         <section class="section">
             <div class="container">
-                <h2 class="section__title">Análisis de transacciones</h2>
+                <h1 class="section__title">Análisis de transacciones</h1>
                 <p class="section__subtitle">
-                    Brock Harrison &middot; Cuenta <strong>POKE-7842-1956</strong>
+                    <span data-cuenta="titular">Brock Harrison</span> &middot;
+                    Cuenta <strong data-cuenta="numero">POKE-7842-1956</strong>
                 </p>
 
-                <!-- Resumen rápido -->
-                <div class="grid" style="margin-bottom: 40px;">
-                    <article class="card">
-                        <h3 class="card__title">Ingresos (Depósitos)</h3>
-                        <p class="card__text text-success" style="font-size: 1.5rem; font-weight: 700;">
-                            $ 1,850.00
-                        </p>
-                        <p class="card__text" style="font-size: 0.9rem;">3 movimientos</p>
-                    </article>
-                    <article class="card">
-                        <h3 class="card__title">Egresos (Retiros + Servicios)</h3>
-                        <p class="card__text text-danger" style="font-size: 1.5rem; font-weight: 700;">
-                            $ 1,265.00
-                        </p>
-                        <p class="card__text" style="font-size: 0.9rem;">7 movimientos</p>
-                    </article>
-                    <article class="card">
-                        <h3 class="card__title">Balance del período</h3>
-                        <p class="card__text text-success" style="font-size: 1.5rem; font-weight: 700;">
-                            + $ 585.00
-                        </p>
-                        <p class="card__text" style="font-size: 0.9rem;">Octubre 2026</p>
-                    </article>
+                <!-- Resumen -->
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <article class="card card-poke card-poke--green h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">Ingresos (depósitos)</h3>
+                                <p class="card__amount text-success" id="resumen-ingresos">$ 0.00</p>
+                                <p class="card__text mb-0" id="resumen-ingresos-n">0 movimientos</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <article class="card card-poke  h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">Egresos (retiros + servicios)</h3>
+                                <p class="card__amount text-danger" id="resumen-egresos">$ 0.00</p>
+                                <p class="card__text mb-0" id="resumen-egresos-n">0 movimientos</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <article class="card card-poke card-poke--yellow h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">Balance del período</h3>
+                                <p class="card__amount text-success" id="resumen-balance">$ 0.00</p>
+                                <p class="card__text mb-0" id="resumen-periodo">0 movimientos</p>
+                            </div>
+                        </article>
+                    </div>
                 </div>
 
-                <!-- Gráficos -->
-                <div class="grid grid--charts">
-                    <!-- Gráfico de barras (Ingresos vs Egresos) -->
-                    <article class="card card--chart">
-                        <h3 class="card__title">Ingresos vs Egresos por mes</h3>
-                        <p class="card__text" style="margin-bottom: 24px;">Comparativa de los últimos meses</p>
-
-                        <div class="chart-bars">
-                            <div class="chart-bar-group">
-                                <div class="chart-bar chart-bar--ingreso" style="height: 110px;" title="Ingresos: $ 450"></div>
-                                <div class="chart-bar chart-bar--egreso" style="height: 70px;" title="Egresos: $ 280"></div>
-                                <span class="chart-label">Jul</span>
+                <!-- Gráficos (Chart.js) -->
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <article class="card card-poke card-poke--blue h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">Transacciones por tipo</h3>
+                                <p class="card__text">Monto total de depósitos, retiros y pagos de servicios.</p>
+                                <div class="chart-box">
+                                    <canvas id="grafico-tipos" role="img" aria-label="Gráfico de transacciones por tipo"></canvas>
+                                </div>
                             </div>
-                            <div class="chart-bar-group">
-                                <div class="chart-bar chart-bar--ingreso" style="height: 90px;" title="Ingresos: $ 380"></div>
-                                <div class="chart-bar chart-bar--egreso" style="height: 100px;" title="Egresos: $ 410"></div>
-                                <span class="chart-label">Ago</span>
+                        </article>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <article class="card card-poke card-poke--blue h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">Distribución de pagos de servicios</h3>
+                                <p class="card__text">Porcentaje pagado en cada servicio.</p>
+                                <div class="chart-box">
+                                    <canvas id="grafico-servicios" role="img" aria-label="Gráfico de distribución del pago de servicios"></canvas>
+                                </div>
                             </div>
-                            <div class="chart-bar-group">
-                                <div class="chart-bar chart-bar--ingreso" style="height: 130px;" title="Ingresos: $ 520"></div>
-                                <div class="chart-bar chart-bar--egreso" style="height: 80px;" title="Egresos: $ 320"></div>
-                                <span class="chart-label">Sep</span>
+                        </article>
+                    </div>
+                    <div class="col-12 mb-4">
+                        <article class="card card-poke card-poke--blue h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">Ingresos vs egresos por mes</h3>
+                                <p class="card__text">Comparativa de los últimos meses (pasa el cursor sobre las barras).</p>
+                                <div class="chart-box">
+                                    <canvas id="grafico-barras" role="img" aria-label="Gráfico de ingresos y egresos por mes"></canvas>
+                                </div>
                             </div>
-                            <div class="chart-bar-group">
-                                <div class="chart-bar chart-bar--ingreso" style="height: 150px;" title="Ingresos: $ 600"></div>
-                                <div class="chart-bar chart-bar--egreso" style="height: 95px;" title="Egresos: $ 380"></div>
-                                <span class="chart-label">Oct</span>
-                            </div>
-                        </div>
-
-                        <div class="chart-legend">
-                            <span class="legend-item"><span class="legend-color legend-color--ingreso"></span> Ingresos</span>
-                            <span class="legend-item"><span class="legend-color legend-color--egreso"></span> Egresos</span>
-                        </div>
-                    </article>
-
-                    <!-- Gráfico circular (Distribución de servicios) -->
-                    <article class="card card--chart">
-                        <h3 class="card__title">Distribución de pagos de servicios</h3>
-                        <p class="card__text" style="margin-bottom: 24px;">Porcentaje por tipo de servicio</p>
-
-                        <div class="chart-pie-container">
-                            <div class="chart-pie" aria-hidden="true"></div>
-                            <ul class="pie-legend">
-                                <li>
-                                    <span class="legend-color" style="background: #ffcb05;"></span>
-                                    Energía eléctrica — 39%
-                                </li>
-                                <li>
-                                    <span class="legend-color" style="background: #2a75bb;"></span>
-                                    Internet — 30%
-                                </li>
-                                <li>
-                                    <span class="legend-color" style="background: #e3350d;"></span>
-                                    Agua potable — 16%
-                                </li>
-                                <li>
-                                    <span class="legend-color" style="background: #2e9e4f;"></span>
-                                    Telefonía — 15%
-                                </li>
-                            </ul>
-                        </div>
-                    </article>
+                        </article>
+                    </div>
                 </div>
 
-                <!-- Nota informativa -->
-                <div class="chart-note">
-                    <p>
-                        <strong>Nota:</strong> Esta pantalla muestra el diseño visual del análisis.
-                        En la siguiente fase se generarán gráficos <strong>interactivos</strong> 
-                        a partir de los datos reales de las transacciones.
-                    </p>
+                <div class="alert alert-warning" role="alert">
+                    <strong>Nota:</strong> los gráficos se generan con <strong>Chart.js</strong> a partir de las
+                    transacciones guardadas. Cada depósito, retiro o pago que realices se refleja aquí automáticamente.
                 </div>
 
-                <div class="center" style="margin-top: 40px;">
-                    <a href="acciones.html" class="btn btn--yellow btn--large">Volver a acciones</a>
-                    <a href="historial.html" class="btn btn--blue btn--large" style="margin-left: 12px;">Ver historial</a>
+                <div class="text-center mt-4">
+                    <a href="acciones.html" class="btn btn-warning btn-lg m-1">Volver a acciones</a>
+                    <a href="historial.html" class="btn btn-primary btn-lg m-1">Ver historial</a>
                 </div>
             </div>
         </section>
@@ -145,11 +135,20 @@
 
     <!-- ===== Pie de página ===== -->
     <footer class="footer">
-        <div class="container footer__inner">
+        <div class="container d-md-flex justify-content-between text-center text-md-left">
             <p><strong>Pokémon Bank</strong> &mdash; Proyecto de Cátedra</p>
             <p>Universidad Don Bosco &middot; Lenguajes Interpretados en el Cliente</p>
         </div>
     </footer>
+
+    <!-- Bootstrap 4.0 (jQuery y Popper son necesarios para el menú desplegable) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+
+    <!-- Librerías -->
+    <!-- Chart.js (gráficos) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
 
     <script src="../js/main.js" defer></script>
 </body>

@@ -6,6 +6,9 @@
     <meta name="description" content="Pokémon Bank - Cajero automático. Proyecto de cátedra de Lenguajes Interpretados en el Cliente, Universidad Don Bosco.">
     <title>Pokémon Bank | Cajero Automático</title>
 
+    <!-- Framework CSS: Bootstrap 4.0 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,60 +17,71 @@
     <!-- Estilos del proyecto -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body data-page="inicio">
 
-    <!-- ===== Encabezado ===== -->
-    <header class="header">
-        <div class="container header__inner">
-            <a href="index.html" class="logo">
+    <!-- ===== Barra de navegación ===== -->
+    <nav class="navbar navbar-expand-md navbar-dark navbar-poke sticky-top">
+        <div class="container">
+            <a class="navbar-brand logo" href="index.html">
                 <span class="pokeball" aria-hidden="true"></span>
-                <span class="logo__text">Pokémon <strong>Bank</strong></span>
+                <span>Pokémon <strong>Bank</strong></span>
             </a>
-            <nav class="nav">
-                <a href="#servicios" class="nav__link">Servicios</a>
-                <a href="#como-funciona" class="nav__link">¿Cómo funciona?</a>
-                <a href="views/login.html" class="btn btn--small btn--yellow">Ingresar</a>
-            </nav>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"
+                    aria-controls="menu" aria-expanded="false" aria-label="Mostrar menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ml-auto align-items-md-center">
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#como-funciona">¿Cómo funciona?</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#librerias">Librerías</a></li>
+                    <li class="nav-item ml-md-3 my-2 my-md-0">
+                        <a href="views/login.html" class="btn btn-sm btn-warning">Ingresar</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </header>
+    </nav>
 
     <main>
-        <!-- ===== Hero / Bienvenida ===== -->
+        <!-- ===== Bienvenida ===== -->
         <section class="hero">
-            <div class="container hero__inner">
-                <div class="hero__content">
-                    <span class="badge">Cajero Automático 24/7</span>
-                    <h1 class="hero__title">¡Bienvenido, Entrenador!</h1>
-                    <p class="hero__text">
-                        Administra tus Pokédólares de forma rápida y segura. Deposita, retira,
-                        consulta tu saldo y paga tus servicios desde un solo lugar.
-                    </p>
-                    <div class="hero__actions">
-                        <a href="views/login.html" class="btn btn--yellow btn--large">Iniciar sesión</a>
-                        <a href="#servicios" class="btn btn--outline-light btn--large">Ver servicios</a>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-7 mb-5 mb-lg-0">
+                        <span class="badge-poke">Cajero Automático 24/7</span>
+                        <h1 class="hero__title">¡Bienvenido, Entrenador!</h1>
+                        <p class="hero__text">
+                            Administra tus Pokédólares de forma rápida y segura. Deposita, retira,
+                            consulta tu saldo y paga tus servicios desde un solo lugar.
+                        </p>
+                        <a href="views/login.html" class="btn btn-warning btn-lg mr-2 mb-2">Iniciar sesión</a>
+                        <a href="#servicios" class="btn btn-outline-light btn-lg mb-2">Ver servicios</a>
                     </div>
-                </div>
 
-                <!-- Representación del cajero -->
-                <div class="atm" aria-label="Ilustración del cajero automático">
-                    <div class="atm__top">
-                        <span class="pokeball pokeball--small" aria-hidden="true"></span>
-                        <span>POKÉMON BANK</span>
-                    </div>
-                    <div class="atm__screen">
-                        <p class="atm__screen-title">BIENVENIDO</p>
-                        <p class="atm__screen-text">Ingrese su PIN para continuar</p>
-                        <div class="pin-dots" aria-hidden="true">
-                            <span></span><span></span><span></span><span></span>
+                    <!-- Representación del cajero -->
+                    <div class="col-lg-5">
+                        <div class="atm" aria-label="Ilustración del cajero automático">
+                            <div class="atm__top">
+                                <span class="pokeball pokeball--small" aria-hidden="true"></span>
+                                <span>POKÉMON BANK</span>
+                            </div>
+                            <div class="atm__screen">
+                                <p class="atm__screen-title">BIENVENIDO</p>
+                                <p class="atm__screen-text">Ingrese su PIN para continuar</p>
+                                <div class="pin-dots" aria-hidden="true">
+                                    <span></span><span></span><span></span><span></span>
+                                </div>
+                            </div>
+                            <div class="atm__keypad" aria-hidden="true">
+                                <span>1</span><span>2</span><span>3</span>
+                                <span>4</span><span>5</span><span>6</span>
+                                <span>7</span><span>8</span><span>9</span>
+                                <span class="key--cancel">CANC</span><span>0</span><span class="key--ok">OK</span>
+                            </div>
+                            <div class="atm__slot" aria-hidden="true"></div>
                         </div>
                     </div>
-                    <div class="atm__keypad" aria-hidden="true">
-                        <span>1</span><span>2</span><span>3</span>
-                        <span>4</span><span>5</span><span>6</span>
-                        <span>7</span><span>8</span><span>9</span>
-                        <span class="key--cancel">CANC</span><span>0</span><span class="key--ok">OK</span>
-                    </div>
-                    <div class="atm__slot" aria-hidden="true"></div>
                 </div>
             </div>
         </section>
@@ -78,31 +92,55 @@
                 <h2 class="section__title">Nuestros servicios</h2>
                 <p class="section__subtitle">Todo lo que necesitas en tu aventura financiera.</p>
 
-                <div class="grid">
-                    <article class="card">
-                        <h3 class="card__title">Depósito</h3>
-                        <p class="card__text">Agrega fondos a tu cuenta al instante.</p>
-                    </article>
-                    <article class="card">
-                        <h3 class="card__title">Retiro</h3>
-                        <p class="card__text">Retira efectivo y obtén tu comprobante en PDF.</p>
-                    </article>
-                    <article class="card">
-                        <h3 class="card__title">Consulta de saldo</h3>
-                        <p class="card__text">Revisa tu saldo disponible en todo momento.</p>
-                    </article>
-                    <article class="card">
-                        <h3 class="card__title">Pago de servicios</h3>
-                        <p class="card__text">Energía, agua, internet y telefonía.</p>
-                    </article>
-                    <article class="card">
-                        <h3 class="card__title">Historial</h3>
-                        <p class="card__text">Consulta todas tus transacciones realizadas.</p>
-                    </article>
-                    <article class="card">
-                        <h3 class="card__title">Gráficos</h3>
-                        <p class="card__text">Analiza tus ingresos y egresos visualmente.</p>
-                    </article>
+                <div class="row">
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <article class="card card-poke card-hover h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">Depósito</h3>
+                                <p class="card__text mb-0">Agrega fondos a tu cuenta al instante.</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <article class="card card-poke card-hover h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">Retiro</h3>
+                                <p class="card__text mb-0">Retira efectivo y obtén tu comprobante en PDF.</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <article class="card card-poke card-hover h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">Consulta de saldo</h3>
+                                <p class="card__text mb-0">Revisa tu saldo disponible en todo momento.</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <article class="card card-poke card-hover h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">Pago de servicios</h3>
+                                <p class="card__text mb-0">Energía eléctrica, agua potable, internet y telefonía.</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <article class="card card-poke card-hover h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">Historial</h3>
+                                <p class="card__text mb-0">Consulta tus transacciones por tipo y monto.</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <article class="card card-poke card-hover h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">Gráficos</h3>
+                                <p class="card__text mb-0">Analiza tus transacciones de forma visual.</p>
+                            </div>
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>
@@ -113,26 +151,87 @@
                 <h2 class="section__title">¿Cómo funciona?</h2>
                 <p class="section__subtitle">Tres pasos y listo.</p>
 
-                <ol class="steps">
-                    <li class="step">
+                <div class="row text-center">
+                    <div class="col-md-4 mb-4">
                         <span class="step__number">1</span>
                         <h3 class="step__title">Ingresa tu PIN</h3>
-                        <p class="step__text">Accede con tu PIN de 4 dígitos.</p>
-                    </li>
-                    <li class="step">
+                        <p class="card__text">Accede con tu PIN de 4 dígitos.</p>
+                    </div>
+                    <div class="col-md-4 mb-4">
                         <span class="step__number">2</span>
                         <h3 class="step__title">Elige una acción</h3>
-                        <p class="step__text">Deposita, retira, consulta o paga servicios.</p>
-                    </li>
-                    <li class="step">
+                        <p class="card__text">Deposita, retira, consulta o paga servicios.</p>
+                    </div>
+                    <div class="col-md-4 mb-4">
                         <span class="step__number">3</span>
                         <h3 class="step__title">Recibe tu comprobante</h3>
-                        <p class="step__text">Descarga el comprobante de tu transacción.</p>
-                    </li>
-                </ol>
+                        <p class="card__text">Descarga el comprobante de tu transacción en PDF.</p>
+                    </div>
+                </div>
 
-                <div class="center">
-                    <a href="views/login.html" class="btn btn--red btn--large">Comenzar ahora</a>
+                <div class="text-center">
+                    <a href="views/login.html" class="btn btn-danger btn-lg">Comenzar ahora</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Librerías utilizadas ===== -->
+        <section id="librerias" class="section">
+            <div class="container">
+                <h2 class="section__title">Librerías utilizadas</h2>
+                <p class="section__subtitle">
+                    Cada librería tiene dos ejemplos independientes y además está integrada en el cajero.
+                </p>
+
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <article class="card card-poke h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">SweetAlert</h3>
+                                <p class="card__text">Ventanas modales para confirmar operaciones y mostrar mensajes.</p>
+                                <ul class="lib-links">
+                                    <li><a href="investigacion/sweetalert/notificacion-exito.html">Notificación de éxito</a></li>
+                                    <li><a href="investigacion/sweetalert/confirmacion-retiro.html">Confirmación de retiro</a></li>
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <article class="card card-poke card-poke--blue h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">jsPDF</h3>
+                                <p class="card__text">Generación de documentos PDF directamente en el navegador.</p>
+                                <ul class="lib-links">
+                                    <li><a href="investigacion/jspdf/comprobante-retiro.html">Comprobante de retiro</a></li>
+                                    <li><a href="investigacion/jspdf/estado-cuenta.html">Estado de cuenta</a></li>
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <article class="card card-poke card-poke--yellow h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">Chart.js</h3>
+                                <p class="card__text">Gráficos interactivos dibujados sobre un canvas.</p>
+                                <ul class="lib-links">
+                                    <li><a href="investigacion/chartjs/grafico-barras.html">Gráfico de barras</a></li>
+                                    <li><a href="investigacion/chartjs/grafico-circular.html">Gráfico circular</a></li>
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <article class="card card-poke card-poke--green h-100">
+                            <div class="card-body">
+                                <h3 class="card__title">validate.js</h3>
+                                <p class="card__text">Validación de datos a partir de reglas declarativas.</p>
+                                <ul class="lib-links">
+                                    <li><a href="investigacion/validatejs/validacion-pin.html">Validación de PIN</a></li>
+                                    <li><a href="investigacion/validatejs/validacion-montos.html">Validación de montos</a></li>
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>
@@ -140,12 +239,16 @@
 
     <!-- ===== Pie de página ===== -->
     <footer class="footer">
-        <div class="container footer__inner">
+        <div class="container d-md-flex justify-content-between text-center text-md-left">
             <p><strong>Pokémon Bank</strong> &mdash; Proyecto de Cátedra</p>
-            <p>Universidad Don Bosco &middot; Lenguajes Interpretados en el Cliente &middot; <span id="year">2026</span></p>
+            <p>Universidad Don Bosco &middot; Lenguajes Interpretados en el Cliente &middot; 2026</p>
         </div>
     </footer>
 
+    <!-- Bootstrap 4.0 (necesita jQuery y Popper para el menú desplegable) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
     <script src="js/main.js" defer></script>
 </body>
 </html>

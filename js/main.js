@@ -75,7 +75,10 @@ function obtenerCuenta() {
     } catch (error) {
         // Si localStorage no está disponible se usan los datos de ejemplo
     }
-    return structuredClone(CUENTA_INICIAL);
+    // Primera vez (o tras reiniciar): se inicializan los datos del usuario en localStorage
+    const inicial = structuredClone(CUENTA_INICIAL);
+    guardarCuenta(inicial);
+    return inicial;
 }
 
 function guardarCuenta(cuenta) {
@@ -746,7 +749,7 @@ function initHistorial() {
                     <td class="text-right ${m.monto >= 0 ? "text-success" : "text-danger"}">${formatoMovimiento(m.monto)}</td>
                     <td class="text-right">${formato(m.saldo)}</td>
                 </tr>`).join("")
-            : `<tr><td colspan="5" class="text-center text-muted">No hay movimientos de este tipo.</td></tr>`;
+            : `<tr><td colspan="5" class="text-center text-muted">${filtro === "todos" ? "Aún no hay movimientos." : "No hay movimientos de este tipo."}</td></tr>`;//: `<tr><td colspan="5" class="text-center text-muted">No hay movimientos de este tipo.</td></tr>`;
 
         document.getElementById("conteo-historial").textContent = `${filas.length} movimiento(s)`;
 
@@ -794,7 +797,16 @@ function initGrafico() {
     const canvasServicios = document.getElementById("grafico-servicios");
     if (!canvasBarras || !canvasServicios) return;
 
-    const cuenta = obtenerCuenta();
+    const cuenta = obtenerCuenta();    
+    // Sin movimientos no hay nada que graficar: se avisa y no se dibujan los gráficos
+    if (cuenta.movimientos.length === 0) {
+        alerta({
+            icon: "info",
+            title: "Sin movimientos",
+            text: "Aún no hay transacciones. Realiza un depósito, retiro o pago y aparecerán aquí."
+        });
+        return;
+    }
 
     // Agrupa ingresos y egresos por mes
     const porMes = {};
@@ -837,20 +849,20 @@ function initGrafico() {
 
     Chart.defaults.font.family = "Poppins, system-ui, sans-serif";
 
-    // Pastel: monto y cantidad de transacciones por tipo
+    // Pastel: monto y cantidad de transacciones por tipo 
     const canvasTipos = document.getElementById("grafico-tipos");
     if (canvasTipos) {
         const tipos = ["Depósito", "Retiro", "Servicio"];
         const montosTipo = tipos.map((t) => totalPorTipo(cuenta, t));
         const conteoTipo = tipos.map((t) => cuenta.movimientos.filter((m) => m.tipo === t).length);
-        const totalTipos = montosTipo.reduce((a, b) => a + b, 0);
+        const totalTipos = conteoTipo.reduce((a, b) => a + b, 0)//const totalTipos = montosTipo.reduce((a, b) => a + b, 0);
 
         new Chart(canvasTipos, {
             type: "pie",
             data: {
                 labels: ["Depósitos", "Retiros", "Pagos de servicios"],
                 datasets: [{
-                    data: montosTipo,
+                    data: conteoTipo,//data: montosTipo,
                     backgroundColor: ["#2e9e4f", "#e3350d", "#2a75bb"],
                     borderColor: "#ffffff",
                     borderWidth: 3,
@@ -866,8 +878,13 @@ function initGrafico() {
                         callbacks: {
                             label: (ctx) => {
                                 const pct = ((ctx.parsed / totalTipos) * 100).toFixed(1);
-                                const n = conteoTipo[ctx.dataIndex];
-                                return ` ${ctx.label}: ${formato(ctx.parsed)} (${pct}%) - ${n} transacciones`;
+                                const monto = montosTipo[ctx.dataIndex];
+                                return ` ${ctx.label}: ${ctx.parsed} transacciones (${pct}%) - ${formato(monto)}`;
+                            
+                            //label: (ctx) => {
+                                //const pct = ((ctx.parsed / totalTipos) * 100).toFixed(1);
+                                //const n = conteoTipo[ctx.dataIndex];
+                                //return ` ${ctx.label}: ${formato(ctx.parsed)} (${pct}%) - ${n} transacciones`;
                             }
                         }
                     }

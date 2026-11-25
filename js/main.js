@@ -862,7 +862,7 @@ function initGrafico() {
             data: {
                 labels: ["Depósitos", "Retiros", "Pagos de servicios"],
                 datasets: [{
-                    data: conteoTipo,//data: montosTipo,
+                    data: conteoTipo,
                     backgroundColor: ["#2e9e4f", "#e3350d", "#2a75bb"],
                     borderColor: "#ffffff",
                     borderWidth: 3,

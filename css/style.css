@@ -1,873 +1,907 @@
-
-
 /* ---------- 1. Variables ---------- */
 :root {
-    /* Colores principales (pokébola) */
-    --red: #e3350d;
-    --red-dark: #b32a0a;
-    --yellow: #ffcb05;
-    --yellow-dark: #e0b000;
-    --blue: #2a75bb;
-    --blue-dark: #1d4f80;
-    --black: #1e1e1e;
-    --white: #ffffff;
+  /* Colores principales (pokébola) */
+  --red: #e3350d;
+  --red-dark: #b32a0a;
+  --yellow: #ffcb05;
+  --yellow-dark: #e0b000;
+  --blue: #2a75bb;
+  --blue-dark: #1d4f80;
+  --black: #1e1e1e;
+  --white: #ffffff;
 
-    /* Neutros */
-    --gray-100: #f5f6f8;
-    --gray-200: #e6e8ec;
-    --gray-400: #a0a6b1;
-    --gray-600: #5b6170;
+  /* Neutros */
+  --gray-100: #f5f6f8;
+  --gray-200: #e6e8ec;
+  --gray-400: #a0a6b1;
+  --gray-600: #5b6170;
 
-    /* Estados */
-    --success: #2e9e4f;
-    --danger: #d62828;
-    --warning: #f4a100;
+  /* Estados */
+  --success: #2e9e4f;
+  --danger: #d62828;
+  --warning: #f4a100;
 
-    /* Pantalla del cajero */
-    --screen-bg: #0f2a1d;
-    --screen-text: #7dff9b;
+  /* Pantalla del cajero */
+  --screen-bg: #0f2a1d;
+  --screen-text: #7dff9b;
 
-    /* Tipografía */
-    --font-body: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    --font-pixel: "Press Start 2P", monospace;
+  /* Tipografía */
+  --font-body:
+    "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-pixel: "Press Start 2P", monospace;
 
-    /* Medidas */
-    --radius: 12px;
-    --radius-lg: 20px;
-    --shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.2);
-    --transition: 0.2s ease;
+  /* Medidas */
+  --radius: 12px;
+  --radius-lg: 20px;
+  --shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.2);
+  --transition: 0.2s ease;
 }
 
 /* ---------- 2. Base ---------- */
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    font-family: var(--font-body);
-    background-color: var(--gray-100);
-    color: var(--black);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  font-family: var(--font-body);
+  background-color: var(--gray-100);
+  color: var(--black);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
-    flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 
 /* ---------- 3. Ajustes de Bootstrap con los colores del banco ---------- */
 .btn {
-    border-radius: 999px;
-    font-weight: 600;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    transition: transform var(--transition), box-shadow var(--transition),
-        background-color var(--transition);
+  border-radius: 999px;
+  font-weight: 600;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    background-color var(--transition);
 }
 
 .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 
 .btn:active,
 .btn:disabled {
-    transform: none;
-    box-shadow: none;
+  transform: none;
+  box-shadow: none;
 }
 
 .btn-danger {
-    background-color: var(--red);
-    border-color: var(--red);
+  background-color: var(--red);
+  border-color: var(--red);
 }
 
 .btn-danger:hover,
 .btn-danger:focus,
 .btn-danger:not(:disabled):active {
-    background-color: var(--red-dark);
-    border-color: var(--red-dark);
+  background-color: var(--red-dark);
+  border-color: var(--red-dark);
 }
 
 .btn-warning {
-    background-color: var(--yellow);
-    border-color: var(--yellow);
-    color: var(--black);
+  background-color: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--black);
 }
 
 .btn-warning:hover,
 .btn-warning:focus,
 .btn-warning:not(:disabled):active {
-    background-color: var(--yellow-dark);
-    border-color: var(--yellow-dark);
-    color: var(--black);
+  background-color: var(--yellow-dark);
+  border-color: var(--yellow-dark);
+  color: var(--black);
 }
 
 .btn-primary {
-    background-color: var(--blue);
-    border-color: var(--blue);
+  background-color: var(--blue);
+  border-color: var(--blue);
 }
 
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:not(:disabled):active {
-    background-color: var(--blue-dark);
-    border-color: var(--blue-dark);
+  background-color: var(--blue-dark);
+  border-color: var(--blue-dark);
 }
 
 .btn-light {
-    background-color: var(--gray-200);
-    border-color: var(--gray-200);
+  background-color: var(--gray-200);
+  border-color: var(--gray-200);
 }
 
-.form-control {
-    border: 2px solid var(--gray-200);
-    border-radius: var(--radius);
-    height: auto;
-    padding: 0.65rem 0.9rem;
+.form-control,
+select.form-control {
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  height: auto !important;
+  padding: 0.65rem 0.9rem;
 }
 
 .form-control:focus {
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(42, 117, 187, 0.2);
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(42, 117, 187, 0.2);
 }
 
 .form-label {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .table thead th {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-top: 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-top: 0;
 }
 
 .table td {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .alert {
-    border-radius: var(--radius);
-    border-width: 0 0 0 5px;
+  border-radius: var(--radius);
+  border-width: 0 0 0 5px;
 }
 
-.text-success { color: var(--success) !important; }
-.text-danger  { color: var(--danger) !important; }
+.text-success {
+  color: var(--success) !important;
+}
+.text-danger {
+  color: var(--danger) !important;
+}
 
 /* ---------- 4. Barra de navegación ---------- */
 .navbar-poke {
-    background: var(--red);
-    border-bottom: 6px solid var(--black);
-    min-height: 70px;
+  background: var(--red);
+  border-bottom: 6px solid var(--black);
+  min-height: 70px;
 }
 
 .navbar-poke .nav-link {
-    color: rgba(255, 255, 255, 0.9) !important;
-    font-weight: 500;
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 500;
 }
 
 .navbar-poke .nav-link:hover,
 .navbar-poke .nav-item.active .nav-link {
-    color: var(--white) !important;
-    text-decoration: underline;
-    text-underline-offset: 4px;
+  color: var(--white) !important;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .navbar-poke .navbar-toggler {
-    border-color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    font-size: 1.35rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.35rem;
 }
 
 .logo .pokeball {
-    margin-right: 12px;
+  margin-right: 12px;
 }
 
 .logo strong {
-    color: var(--yellow);
+  color: var(--yellow);
 }
 
 /* ---------- 5. Pokébola (CSS puro) ---------- */
 .pokeball {
-    --size: 40px;
-    display: inline-block;
-    width: var(--size);
-    height: var(--size);
-    border-radius: 50%;
-    border: calc(var(--size) * 0.08) solid var(--black);
-    background: linear-gradient(to bottom,
-            var(--red) 0 46%,
-            var(--black) 46% 54%,
-            var(--white) 54% 100%);
-    position: relative;
-    flex-shrink: 0;
+  --size: 40px;
+  display: inline-block;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  border: calc(var(--size) * 0.08) solid var(--black);
+  background: linear-gradient(
+    to bottom,
+    var(--red) 0 46%,
+    var(--black) 46% 54%,
+    var(--white) 54% 100%
+  );
+  position: relative;
+  flex-shrink: 0;
 }
 
 .pokeball::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 34%;
-    height: 34%;
-    transform: translate(-50%, -50%);
-    background: var(--white);
-    border: calc(var(--size) * 0.07) solid var(--black);
-    border-radius: 50%;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 34%;
+  height: 34%;
+  transform: translate(-50%, -50%);
+  background: var(--white);
+  border: calc(var(--size) * 0.07) solid var(--black);
+  border-radius: 50%;
 }
 
 .pokeball--small {
-    --size: 22px;
+  --size: 22px;
 }
 
 /* ---------- 6. Etiqueta (badge) del proyecto ---------- */
 .badge-poke {
-    display: inline-block;
-    background: var(--yellow);
-    color: var(--black);
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 4px 14px;
-    border-radius: 999px;
-    margin-bottom: 16px;
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--black);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
 }
 
 /* ---------- 7. Hero (bienvenida) ---------- */
 .hero {
-    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-    color: var(--white);
-    padding: 64px 0;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  color: var(--white);
+  padding: 64px 0;
 }
 
 .hero__title {
-    font-family: var(--font-pixel);
-    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-    line-height: 1.5;
-    margin-bottom: 20px;
-    text-shadow: 3px 3px 0 var(--black);
+  font-family: var(--font-pixel);
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-shadow: 3px 3px 0 var(--black);
 }
 
 .hero__text {
-    font-size: 1.1rem;
-    opacity: 0.95;
-    margin-bottom: 32px;
-    max-width: 520px;
+  font-size: 1.1rem;
+  opacity: 0.95;
+  margin-bottom: 32px;
+  max-width: 520px;
 }
 
 /* ---------- 8. Cajero (ATM) ---------- */
 .atm {
-    background: linear-gradient(180deg, #d9dde3, #b9bfc8);
-    border: 4px solid var(--black);
-    border-radius: var(--radius-lg);
-    padding: 20px;
-    max-width: 360px;
-    width: 100%;
-    margin: 0 auto;
-    box-shadow: var(--shadow-lg);
-    color: var(--black);
+  background: linear-gradient(180deg, #d9dde3, #b9bfc8);
+  border: 4px solid var(--black);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  max-width: 360px;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: var(--shadow-lg);
+  color: var(--black);
 }
 
 .atm__top {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--red);
-    color: var(--white);
-    font-family: var(--font-pixel);
-    font-size: 0.65rem;
-    padding: 10px;
-    border-radius: var(--radius);
-    margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  padding: 10px;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
 }
 
 .atm__top .pokeball {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .atm__screen {
-    background: var(--screen-bg);
-    color: var(--screen-text);
-    border: 4px solid var(--black);
-    border-radius: var(--radius);
-    padding: 24px 16px;
-    text-align: center;
-    font-family: var(--font-pixel);
-    margin-bottom: 16px;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+  background: var(--screen-bg);
+  color: var(--screen-text);
+  border: 4px solid var(--black);
+  border-radius: var(--radius);
+  padding: 24px 16px;
+  text-align: center;
+  font-family: var(--font-pixel);
+  margin-bottom: 16px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
 }
 
 .atm__screen-title {
-    font-size: 0.9rem;
-    margin-bottom: 12px;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
 }
 
 .atm__screen-text {
-    font-size: 0.55rem;
-    line-height: 1.8;
-    margin-bottom: 16px;
+  font-size: 0.55rem;
+  line-height: 1.8;
+  margin-bottom: 16px;
 }
 
 .pin-dots {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .pin-dots span {
-    width: 14px;
-    height: 14px;
-    margin: 0 6px;
-    border: 2px solid var(--screen-text);
-    border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  margin: 0 6px;
+  border: 2px solid var(--screen-text);
+  border-radius: 50%;
 }
 
 .pin-dots span.filled {
-    background: var(--screen-text);
+  background: var(--screen-text);
 }
 
 /* Teclado numérico */
 .atm__keypad,
 .keypad {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
 }
 
 .atm__keypad span,
 .keypad button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--white);
-    border: 2px solid var(--black);
-    border-bottom-width: 4px;
-    border-radius: 8px;
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 1.1rem;
-    padding: 8px 0;
-    user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-bottom-width: 4px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 8px 0;
+  user-select: none;
 }
 
 .keypad button {
-    cursor: pointer;
-    padding: 14px 0;
-    transition: transform 0.1s;
+  cursor: pointer;
+  padding: 14px 0;
+  transition: transform 0.1s;
 }
 
 .keypad button:active {
-    transform: translateY(2px);
-    border-bottom-width: 2px;
+  transform: translateY(2px);
+  border-bottom-width: 2px;
 }
 
 .keypad button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .atm__keypad .key--cancel,
 .keypad .key--cancel {
-    background: var(--red);
-    color: var(--white);
+  background: var(--red);
+  color: var(--white);
 }
 
 .atm__keypad .key--ok,
 .keypad .key--ok {
-    background: var(--success);
-    color: var(--white);
+  background: var(--success);
+  color: var(--white);
 }
 
 .keypad .key--delete {
-    grid-column: 1 / -1;
-    background: var(--yellow);
-    font-size: 0.9rem;
+  grid-column: 1 / -1;
+  background: var(--yellow);
+  font-size: 0.9rem;
 }
 
 .atm__slot {
-    height: 10px;
-    margin: 16px auto 0;
-    width: 60%;
-    background: var(--black);
-    border-radius: 999px;
+  height: 10px;
+  margin: 16px auto 0;
+  width: 60%;
+  background: var(--black);
+  border-radius: 999px;
 }
 
 /* Estados de la pantalla */
 .atm__screen.is-error {
-    color: #ff7b7b;
+  color: #ff7b7b;
 }
 
 .atm__screen.is-error .pin-dots span {
-    border-color: #ff7b7b;
-    animation: shake 0.35s;
+  border-color: #ff7b7b;
+  animation: shake 0.35s;
 }
 
 .atm__screen.is-success .pin-dots span {
-    background: var(--screen-text);
+  background: var(--screen-text);
 }
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25%      { transform: translateX(-4px); }
-    75%      { transform: translateX(4px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
 }
 
 /* ---------- 9. Secciones ---------- */
 .section {
-    padding: 64px 0;
+  padding: 64px 0;
 }
 
 .section--alt {
-    background: var(--white);
+  background: var(--white);
 }
 
 .section__title {
-    text-align: center;
-    font-weight: 700;
-    font-size: clamp(1.6rem, 3vw, 2.1rem);
-    margin-bottom: 8px;
+  text-align: center;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  margin-bottom: 8px;
 }
 
 .section__subtitle {
-    text-align: center;
-    color: var(--gray-600);
-    margin-bottom: 40px;
+  text-align: center;
+  color: var(--gray-600);
+  margin-bottom: 40px;
 }
 
 /* ---------- 10. Tarjetas del proyecto (sobre .card de Bootstrap) ---------- */
 .card-poke {
-    border: 0;
-    border-top: 5px solid var(--red);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
+  border: 0;
+  border-top: 5px solid var(--red);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 .card-poke .card-body {
-    padding: 1.75rem 1.5rem;
+  padding: 1.75rem 1.5rem;
 }
 
 .card-hover {
-    transition: transform var(--transition), box-shadow var(--transition);
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
 }
 
 .card-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
-.card-poke--blue   { border-top-color: var(--blue); }
-.card-poke--yellow { border-top-color: var(--yellow); }
-.card-poke--green  { border-top-color: var(--success); }
-.card-poke--dark   { border-top-color: var(--black); }
+.card-poke--blue {
+  border-top-color: var(--blue);
+}
+.card-poke--yellow {
+  border-top-color: var(--yellow);
+}
+.card-poke--green {
+  border-top-color: var(--success);
+}
+.card-poke--dark {
+  border-top-color: var(--black);
+}
 
 .card__title {
-    font-size: 1.15rem;
-    font-weight: 700;
-    margin-bottom: 6px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 6px;
 }
 
 .card__text {
-    color: var(--gray-600);
-    font-size: 0.95rem;
+  color: var(--gray-600);
+  font-size: 0.95rem;
 }
 
 .card__amount {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0;
 }
 
 /* ---------- 11. Pasos (index) ---------- */
 .step__number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: var(--yellow);
-    border: 3px solid var(--black);
-    font-family: var(--font-pixel);
-    font-size: 1rem;
-    margin-bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 3px solid var(--black);
+  font-family: var(--font-pixel);
+  font-size: 1rem;
+  margin-bottom: 16px;
 }
 
 .step__title {
-    font-size: 1.1rem;
-    font-weight: 700;
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 /* ---------- 12. Login ---------- */
 .login {
-    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-    color: var(--white);
-    padding: 56px 0;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  color: var(--white);
+  padding: 56px 0;
 }
 
 .login__title {
-    font-family: var(--font-pixel);
-    font-size: clamp(1.3rem, 3vw, 1.9rem);
-    line-height: 1.5;
-    margin-bottom: 16px;
-    text-shadow: 3px 3px 0 var(--black);
+  font-family: var(--font-pixel);
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  text-shadow: 3px 3px 0 var(--black);
 }
 
 .login__text {
-    font-size: 1.05rem;
-    opacity: 0.95;
-    max-width: 460px;
+  font-size: 1.05rem;
+  opacity: 0.95;
+  max-width: 460px;
 }
 
 .login__tips {
-    padding-left: 0;
-    list-style: none;
-    margin-bottom: 24px;
+  padding-left: 0;
+  list-style: none;
+  margin-bottom: 24px;
 }
 
 .login__tips li {
-    padding-left: 18px;
-    margin-bottom: 8px;
-    position: relative;
+  padding-left: 18px;
+  margin-bottom: 8px;
+  position: relative;
 }
 
 .login__tips li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.6em;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--yellow);
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--yellow);
 }
 
 .login__demo {
-    display: inline-block;
-    background: rgba(0, 0, 0, 0.25);
-    border-left: 4px solid var(--yellow);
-    padding: 8px 16px;
-    border-radius: 0 8px 8px 0;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.25);
+  border-left: 4px solid var(--yellow);
+  padding: 8px 16px;
+  border-radius: 0 8px 8px 0;
 }
 
 /* ---------- 13. Operaciones (depósito, retiro, servicios) ---------- */
 .op-card {
-    max-width: 680px;
-    margin: 0 auto;
+  max-width: 680px;
+  margin: 0 auto;
 }
 
 .op-card .card-body {
-    padding: 2.25rem;
+  padding: 2.25rem;
 }
 
 .op-heading {
-    display: flex;
-    align-items: center;
-    margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 28px;
 }
 
 .op-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    flex-shrink: 0;
-    margin-right: 16px;
-    border-radius: var(--radius);
-    font-size: 2rem;
-    font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  margin-right: 16px;
+  border-radius: var(--radius);
+  font-size: 2rem;
+  font-weight: 700;
 }
 
-.op-icon--deposito { background: #e5f5e9; color: var(--success); }
-.op-icon--retiro   { background: #fde8e5; color: var(--danger); }
-.op-icon--servicio { background: #e8f1fb; color: var(--blue); }
+.op-icon--deposito {
+  background: #e5f5e9;
+  color: var(--success);
+}
+.op-icon--retiro {
+  background: #fde8e5;
+  color: var(--danger);
+}
+.op-icon--servicio {
+  background: #e8f1fb;
+  color: var(--blue);
+}
 
 .op-cuenta {
-    background: var(--gray-100);
-    border: 1px solid var(--gray-200);
-    border-radius: var(--radius);
-    padding: 20px;
-    margin-bottom: 28px;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 28px;
 }
 
 .op-cuenta h3 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin: 6px 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 6px 0;
 }
 
 .op-cuenta p {
-    margin-bottom: 4px;
+  margin-bottom: 4px;
 }
 
 .op-acciones {
-    display: flex;
-    margin-top: 30px;
+  display: flex;
+  margin-top: 30px;
 }
 
 .op-acciones .btn {
-    flex: 1;
+  flex: 1;
 }
 
 .op-acciones .btn + .btn {
-    margin-left: 16px;
+  margin-left: 16px;
 }
 
 /* ---------- 14. Gráficos ---------- */
 .chart-box {
-    position: relative;
-    height: 320px;
+  position: relative;
+  height: 320px;
 }
 
 /* ---------- 14b. SweetAlert (colores del banco) ---------- */
 .swal-modal {
-    border-radius: var(--radius-lg);
-    font-family: var(--font-body);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-body);
 }
 
 .swal-title {
-    color: var(--black);
+  color: var(--black);
 }
 
 .swal-text,
 .swal-content {
-    color: var(--gray-600);
-    text-align: center;
+  color: var(--gray-600);
+  text-align: center;
 }
 
 .swal-button {
-    background-color: var(--red);
-    border-radius: 999px;
-    font-weight: 600;
-    padding: 10px 24px;
+  background-color: var(--red);
+  border-radius: 999px;
+  font-weight: 600;
+  padding: 10px 24px;
 }
 
 .swal-button:not([disabled]):hover {
-    background-color: var(--red-dark);
+  background-color: var(--red-dark);
 }
 
 .swal-button:focus {
-    box-shadow: 0 0 0 3px rgba(227, 53, 13, 0.3);
+  box-shadow: 0 0 0 3px rgba(227, 53, 13, 0.3);
 }
 
 .swal-button--cancel {
-    background-color: var(--gray-200);
-    color: var(--black);
+  background-color: var(--gray-200);
+  color: var(--black);
 }
 
 .swal-button--cancel:not([disabled]):hover {
-    background-color: var(--gray-400);
+  background-color: var(--gray-400);
 }
 
 .swal-button--cancel:focus {
-    box-shadow: 0 0 0 3px rgba(160, 166, 177, 0.4);
+  box-shadow: 0 0 0 3px rgba(160, 166, 177, 0.4);
 }
 
 .swal-footer {
-    text-align: center;
+  text-align: center;
 }
 
 /* ---------- 15. Investigación (ejemplos de librerías) ---------- */
 .demo__header {
-    margin-bottom: 32px;
+  margin-bottom: 32px;
 }
 
 .demo__title {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 700;
-    margin: 8px 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  margin: 8px 0;
 }
 
 .demo__lead {
-    color: var(--gray-600);
-    max-width: 760px;
+  color: var(--gray-600);
+  max-width: 760px;
 }
 
 .demo__panel h2 {
-    font-size: 1.15rem;
-    font-weight: 700;
-    margin-bottom: 8px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
 .demo__panel * + h2 {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .demo__list {
-    padding-left: 0;
-    list-style: none;
-    color: var(--gray-600);
+  padding-left: 0;
+  list-style: none;
+  color: var(--gray-600);
 }
 
 .demo__list li {
-    position: relative;
-    padding-left: 18px;
-    margin-bottom: 6px;
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 6px;
 }
 
 .demo__list li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.6em;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--red);
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--red);
 }
 
 .demo__actions {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 8px -6px 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 8px -6px 0;
 }
 
 .demo__actions .btn {
-    margin: 0 6px 12px;
+  margin: 0 6px 12px;
 }
 
 .demo__row {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gray-200);
 }
 
 .demo__row strong {
-    font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 
 .demo__hint {
-    font-size: 0.85rem;
-    color: var(--gray-600);
-    margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  margin-top: 12px;
 }
 
 .demo__result {
-    margin-top: 16px;
-    padding: 12px 16px;
-    border-radius: var(--radius);
-    background: var(--gray-100);
-    border-left: 4px solid var(--gray-400);
-    font-size: 0.95rem;
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  background: var(--gray-100);
+  border-left: 4px solid var(--gray-400);
+  font-size: 0.95rem;
 }
 
 .demo__result.is-success {
-    border-left-color: var(--success);
-    background: #e8f6ec;
+  border-left-color: var(--success);
+  background: #e8f6ec;
 }
 
 .demo__result.is-error {
-    border-left-color: var(--danger);
-    background: #fdecec;
+  border-left-color: var(--danger);
+  background: #fdecec;
 }
 
 .demo__preview {
-    width: 100%;
-    height: 420px;
-    border: 2px solid var(--gray-200);
-    border-radius: var(--radius);
-    margin-top: 16px;
-    background: var(--gray-100);
+  width: 100%;
+  height: 420px;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  margin-top: 16px;
+  background: var(--gray-100);
 }
 
 .code {
-    background: var(--black);
-    color: #e6e6e6;
-    padding: 20px;
-    border-radius: var(--radius);
-    overflow-x: auto;
-    font-size: 0.85rem;
-    line-height: 1.6;
-    margin-top: 12px;
+  background: var(--black);
+  color: #e6e6e6;
+  padding: 20px;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-top: 12px;
 }
 
 /* ---------- 16. Librerías (index) ---------- */
 .lib-uso {
-    font-size: 0.9rem;
-    margin: 12px 0;
+  font-size: 0.9rem;
+  margin: 12px 0;
 }
 
 .lib-links {
-    padding-left: 0;
-    list-style: none;
-    margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+  margin-bottom: 0;
 }
 
 .lib-links li {
-    margin-bottom: 6px;
+  margin-bottom: 6px;
 }
 
 .lib-links a {
-    color: var(--blue);
-    font-weight: 600;
+  color: var(--blue);
+  font-weight: 600;
 }
 
 /* ---------- 17. Pie de página ---------- */
 .footer {
-    background: var(--black);
-    color: var(--gray-400);
-    padding: 24px 0;
-    font-size: 0.9rem;
+  background: var(--black);
+  color: var(--gray-400);
+  padding: 24px 0;
+  font-size: 0.9rem;
 }
 
 .footer p {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .footer strong {
-    color: var(--white);
+  color: var(--white);
 }
 
 /* ---------- 18. Responsive ---------- */
 @media (max-width: 767.98px) {
-    .logo {
-        font-size: 1.1rem;
-    }
+  .logo {
+    font-size: 1.1rem;
+  }
 
-    .hero,
-    .login {
-        padding: 40px 0;
-        text-align: center;
-    }
+  .hero,
+  .login {
+    padding: 40px 0;
+    text-align: center;
+  }
 
-    .hero__text,
-    .login__text {
-        margin-left: auto;
-        margin-right: auto;
-    }
+  .hero__text,
+  .login__text {
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-    .login__tips {
-        display: inline-block;
-        text-align: left;
-    }
+  .login__tips {
+    display: inline-block;
+    text-align: left;
+  }
 
-    .section {
-        padding: 44px 0;
-    }
+  .section {
+    padding: 44px 0;
+  }
 
-    .op-card .card-body {
-        padding: 1.5rem 1.1rem;
-    }
+  .op-card .card-body {
+    padding: 1.5rem 1.1rem;
+  }
 
-    .op-acciones {
-        flex-direction: column-reverse;
-    }
+  .op-acciones {
+    flex-direction: column-reverse;
+  }
 
-    .op-acciones .btn + .btn {
-        margin-left: 0;
-        margin-bottom: 12px;
-    }
+  .op-acciones .btn + .btn {
+    margin-left: 0;
+    margin-bottom: 12px;
+  }
 
-    /* Botones grandes: el texto puede ocupar dos líneas */
-    .btn-lg {
-        white-space: normal;
-        max-width: 100%;
-    }
+  /* Botones grandes: el texto puede ocupar dos líneas */
+  .btn-lg {
+    white-space: normal;
+    max-width: 100%;
+  }
 }
